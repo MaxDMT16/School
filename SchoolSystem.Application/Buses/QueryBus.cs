@@ -1,0 +1,70 @@
+﻿using System;
+using System.Threading.Tasks;
+using Autofac;
+using FluentValidation;
+using SchoolSystem.Abstractions.CQRS.Buses;
+using SchoolSystem.Abstractions.CQRS.Contracts;
+using SchoolSystem.Abstractions.CQRS.Handlers;
+
+namespace SchoolSystem.Application.Buses
+{
+    public class QueryBus : IQueryBus
+    {
+        private readonly ILifetimeScope _lifetimeScope;
+
+        public QueryBus(ILifetimeScope lifetimeScope)
+        {
+            _lifetimeScope = lifetimeScope;
+        }
+
+        public async Task<TQueryResult> Execute<TQuery, TQueryResult>(TQuery query) where TQuery : IQuery<TQueryResult>
+            where TQueryResult : IQueryResult
+        {
+            var queryHandler = ResolveHandler<TQuery, TQueryResult>(query);
+
+            await Validate<TQuery, TQueryResult>(query);
+
+            var queryResult = await queryHandler.Execute(query);
+
+            return queryResult;
+        }
+
+        private IQueryHandler<TQuery, TQueryResult> ResolveHandler<TQuery, TQueryResult>(TQuery query)
+            where TQuery : IQuery<TQueryResult>
+            where TQueryResult : IQueryResult
+        {
+            var queryHandler = _lifetimeScope.ResolveOptional<IQueryHandler<TQuery, TQueryResult>>();
+
+            if (queryHandler == null)
+            {
+                throw new InvalidOperationException("Can't resolve query handler");
+            }
+
+            return queryHandler;
+        }
+
+        private async Task Validate<TQuery, TQueryResult>(TQuery query)
+            where TQuery : IQuery<TQueryResult>
+            where TQueryResult : IQueryResult
+        {
+            var validator = _lifetimeScope.ResolveOptional<IValidator<TQuery>>();
+
+            if (validator == null)
+            {
+                throw new InvalidOperationException("Can't resolve validator for query");
+            }
+
+            var validationResult = await validator.ValidateAsync(query);
+
+            if (validationResult == null)
+            {
+                throw new InvalidOperationException("Validation result is null");
+            }
+
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException("Query is in invalid state", validationResult.Errors);
+            }
+        }
+    }
+}

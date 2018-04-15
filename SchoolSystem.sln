@@ -3,16 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolSystem.Abstractions", "SchoolSystem.Abstractions\SchoolSystem.Abstractions.csproj", "{87C53F82-D8F6-4A4D-9356-1558620E8343}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolSystem.Abstractions", "SchoolSystem.Abstractions\SchoolSystem.Abstractions.csproj", "{87C53F82-D8F6-4A4D-9356-1558620E8343}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolSystem.WebApi", "SchoolSystem.WebApi\SchoolSystem.WebApi.csproj", "{4EFCA647-4686-4F74-BA8F-3A0C37D4DFC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolSystem.WebApi", "SchoolSystem.WebApi\SchoolSystem.WebApi.csproj", "{4EFCA647-4686-4F74-BA8F-3A0C37D4DFC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolSystem.Database", "SchoolSystem.Database\SchoolSystem.Database.csproj", "{60FBD01D-DF7D-40BE-BB04-E5913F8A82E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolSystem.Database", "SchoolSystem.Database\SchoolSystem.Database.csproj", "{60FBD01D-DF7D-40BE-BB04-E5913F8A82E5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{87C53F82-D8F6-4A4D-9356-1558620E8343} = {87C53F82-D8F6-4A4D-9356-1558620E8343}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolSystem.Domain", "SchoolSystem.Domain\SchoolSystem.Domain.csproj", "{33650569-E590-4E3A-BC77-B86DA053D6BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolSystem.Domain", "SchoolSystem.Domain\SchoolSystem.Domain.csproj", "{33650569-E590-4E3A-BC77-B86DA053D6BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolSystem.Application", "SchoolSystem.Application\SchoolSystem.Application.csproj", "{B6A1A529-60F7-4EF3-8949-601C5E9B96CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,10 @@ Global
 		{33650569-E590-4E3A-BC77-B86DA053D6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33650569-E590-4E3A-BC77-B86DA053D6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33650569-E590-4E3A-BC77-B86DA053D6BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6A1A529-60F7-4EF3-8949-601C5E9B96CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6A1A529-60F7-4EF3-8949-601C5E9B96CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6A1A529-60F7-4EF3-8949-601C5E9B96CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6A1A529-60F7-4EF3-8949-601C5E9B96CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
