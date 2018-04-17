@@ -5,6 +5,9 @@ using FluentValidation;
 using SchoolSystem.Abstractions.CQRS.Buses;
 using SchoolSystem.Abstractions.CQRS.Contracts;
 using SchoolSystem.Abstractions.CQRS.Handlers;
+using SchoolSystem.Abstractions.Exceptions.Base;
+using SchoolSystem.Abstractions.Exceptions.Queries;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace SchoolSystem.Application.Buses
 {
@@ -37,7 +40,7 @@ namespace SchoolSystem.Application.Buses
 
             if (queryHandler == null)
             {
-                throw new InvalidOperationException("Can't resolve query handler");
+                throw new QueryHandlerNotFoundException<TQuery, TQueryResult>(query);
             }
 
             return queryHandler;
@@ -51,19 +54,19 @@ namespace SchoolSystem.Application.Buses
 
             if (validator == null)
             {
-                throw new InvalidOperationException("Can't resolve validator for query");
+                throw new MissingQueryValidatorException<TQuery, TQueryResult>(query);
             }
 
             var validationResult = await validator.ValidateAsync(query);
 
             if (validationResult == null)
             {
-                throw new InvalidOperationException("Validation result is null");
+                throw new CorruptedValidatorException<IValidator<TQuery>, TQuery>(validator, query);
             }
 
             if (!validationResult.IsValid)
             {
-                throw new ValidationException("Query is in invalid state", validationResult.Errors);
+                throw new Abstractions.Exceptions.Base.ValidationException(query, validationResult.Errors);
             }
         }
     }

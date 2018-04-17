@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Abstractions.Contracts.Commands.ScheduleCells;
+using SchoolSystem.Abstractions.Exceptions.Commands;
 using SchoolSystem.Database.Context;
+using SchoolSystem.Database.Entities;
 using SchoolSystem.Database.Handlers;
 
 namespace SchoolSystem.Domain.Handlers.Commands.ScheduleCells
@@ -19,7 +21,7 @@ namespace SchoolSystem.Domain.Handlers.Commands.ScheduleCells
 
             if (scheduleCell == null)
             {
-                throw new InvalidOperationException("Can't find schedule cell to update");
+                throw new EntityNotFoundException<ScheduleCell, UpdateScheduleCellCommand>(command);
             }
 
             scheduleCell.Day = command.Day ?? scheduleCell.Day;

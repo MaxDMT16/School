@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Abstractions.Contracts.Commands.Groups;
+using SchoolSystem.Abstractions.Exceptions.Commands;
 using SchoolSystem.Database.Context;
 using SchoolSystem.Database.Handlers;
 
@@ -19,7 +20,7 @@ namespace SchoolSystem.Domain.Handlers.Commands.Groups
 
             if (group == null)
             {
-                throw new InvalidOperationException("Can't find group to delete");
+                throw new EntityNotFoundException();
             }
 
             DbContext.Groups.Remove(group);

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Abstractions.Contracts.Commands.Teachers;
+using SchoolSystem.Abstractions.Exceptions.Commands;
 using SchoolSystem.Database.Context;
 using SchoolSystem.Database.Entities.Users;
 using SchoolSystem.Database.Handlers;
@@ -21,7 +22,7 @@ namespace SchoolSystem.Domain.Handlers.Commands.Teachers
 
             if (teacher == null)
             {
-                throw new InvalidOperationException("Teacher to update not found");
+                throw new EntityNotFoundException<Teacher, UpdateTeacherCommand>(command);
             }
 
             teacher.FirstName = command.FirstName ?? teacher.FirstName;

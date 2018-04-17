@@ -3,7 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Abstractions.Contracts.Commands.Pupils;
+using SchoolSystem.Abstractions.Exceptions.Commands;
 using SchoolSystem.Database.Context;
+using SchoolSystem.Database.Entities.Users;
 using SchoolSystem.Database.Handlers;
 
 namespace SchoolSystem.Domain.Handlers.Commands.Pupils
@@ -20,7 +22,7 @@ namespace SchoolSystem.Domain.Handlers.Commands.Pupils
 
             if (pupil == null)
             {
-                throw new InvalidOperationException("Pupil to update not found");
+                throw new EntityNotFoundException<Pupil, UpdatePupilCommand>(command);
             }
 
             pupil.FirstName = command.FirstName ?? pupil.FirstName;

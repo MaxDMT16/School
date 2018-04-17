@@ -15,6 +15,7 @@ using SchoolSystem.Application;
 using SchoolSystem.Database;
 using SchoolSystem.Database.Context;
 using SchoolSystem.Domain;
+using SchoolSystem.WebApi.Middleware;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace SchoolSystem.WebApi
@@ -55,14 +56,17 @@ namespace SchoolSystem.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseSwagger();
 
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolSystem API V1"); });
+
 
             app.UseMvc();
         }

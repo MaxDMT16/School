@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Abstractions.Contracts.Commands.Lessons;
+using SchoolSystem.Abstractions.Exceptions.Commands;
 using SchoolSystem.Database.Context;
+using SchoolSystem.Database.Entities;
 using SchoolSystem.Database.Handlers;
 
 namespace SchoolSystem.Domain.Handlers.Commands.Lessons
@@ -19,7 +21,7 @@ namespace SchoolSystem.Domain.Handlers.Commands.Lessons
 
             if (lesson == null)
             {
-                throw new InvalidOperationException("Can't find lesson to update");
+                throw new EntityNotFoundException<Lesson, UpdateLessonCommand>(command);
             }
 
             lesson.TeacherId = command.TeacherId ?? lesson.TeacherId;

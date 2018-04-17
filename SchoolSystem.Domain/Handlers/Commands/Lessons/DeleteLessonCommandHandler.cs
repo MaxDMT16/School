@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Abstractions.Contracts.Commands.Lessons;
+using SchoolSystem.Abstractions.Exceptions.Commands;
 using SchoolSystem.Database.Context;
+using SchoolSystem.Database.Entities;
 using SchoolSystem.Database.Handlers;
 
 namespace SchoolSystem.Domain.Handlers.Commands.Lessons
@@ -19,7 +21,7 @@ namespace SchoolSystem.Domain.Handlers.Commands.Lessons
 
             if (lesson == null)
             {
-                throw new InvalidOperationException("Can't find lesson to delete");
+                throw new EntityNotFoundException<Lesson, DeleteLessonCommand>(command);
             }
 
             DbContext.Lessons.Remove(lesson);

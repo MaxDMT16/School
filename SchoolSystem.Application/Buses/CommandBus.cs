@@ -5,6 +5,9 @@ using FluentValidation;
 using SchoolSystem.Abstractions.CQRS.Buses;
 using SchoolSystem.Abstractions.CQRS.Contracts;
 using SchoolSystem.Abstractions.CQRS.Handlers;
+using SchoolSystem.Abstractions.Exceptions.Base;
+using SchoolSystem.Abstractions.Exceptions.Commands;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace SchoolSystem.Application.Buses
 {
@@ -33,31 +36,32 @@ namespace SchoolSystem.Application.Buses
 
             if (commandHandler == null)
             {
-                throw new InvalidOperationException("Can't resolve command handler");
+                throw new CommandHandlerNotFoundException<TCommand>(command);
             }
 
             return commandHandler;
         }
 
         private async Task Validate<TCommand>(TCommand command)
+            where TCommand : ICommand
         {
             var validator = _lifetimeScope.ResolveOptional<IValidator<TCommand>>();
 
             if (validator == null)
             {
-                throw new InvalidOperationException("Command validator is null");
+                throw new MissingCommandValidatorException<TCommand>(command);
             }
 
             var validationResult = await validator.ValidateAsync(command);
 
             if (validationResult == null)
             {
-                throw new InvalidOperationException("Validation result is null");
+                throw new CorruptedValidatorException<IValidator<TCommand>, TCommand>(validator, command);
             }
 
             if (!validationResult.IsValid)
             {
-                throw new ValidationException("Command is invalid state", validationResult.Errors);
+                throw new Abstractions.Exceptions.Base.ValidationException(command, validationResult.Errors);
             }
         }
     }
