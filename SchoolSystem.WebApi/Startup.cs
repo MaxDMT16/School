@@ -11,10 +11,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SchoolSystem.Abstractions.Configuration;
 using SchoolSystem.Application;
 using SchoolSystem.Database;
 using SchoolSystem.Database.Context;
 using SchoolSystem.Domain;
+using SchoolSystem.WebApi.Configuration;
+using SchoolSystem.WebApi.Logging;
+using SchoolSystem.WebApi.Logging.Providers;
 using SchoolSystem.WebApi.Middleware;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -48,25 +52,27 @@ namespace SchoolSystem.WebApi
             containerBuilder.RegisterModule<ApplicationModule>();
             containerBuilder.RegisterModule<DatabaseModule>();
             containerBuilder.RegisterModule<DomainModule>();
+            containerBuilder.RegisterModule<ConfigurationModule>();
+            containerBuilder.RegisterModule<LoggingModule>();
+
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
+
             return new AutofacServiceProvider(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IConfigurationRoot root,
+            ILoggerFactory loggerFactory)
         {
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
+            var loggerConfiguration = app.ApplicationServices.GetRequiredService<ILoggerConfiguration>();
+            loggerFactory.AddProvider(new FileLoggerProvider(loggerConfiguration));
 
             app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseSwagger();
 
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolSystem API V1"); });
-
 
             app.UseMvc();
         }

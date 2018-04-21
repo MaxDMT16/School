@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Abstractions.Contracts.Commands.Groups;
 using SchoolSystem.Abstractions.Exceptions.Commands;
 using SchoolSystem.Database.Context;
+using SchoolSystem.Database.Entities;
 using SchoolSystem.Database.Handlers;
 
 namespace SchoolSystem.Domain.Handlers.Commands.Groups
@@ -20,7 +21,7 @@ namespace SchoolSystem.Domain.Handlers.Commands.Groups
 
             if (group == null)
             {
-                throw new EntityNotFoundException();
+                throw new EntityNotFoundException<Group, DeleteGroupCommand>(command);
             }
 
             DbContext.Groups.Remove(group);

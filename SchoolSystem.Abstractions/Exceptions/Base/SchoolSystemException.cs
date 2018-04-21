@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Resources;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using SchoolSystem.Abstractions.Exceptions.Attributes;
 
@@ -20,7 +22,16 @@ namespace SchoolSystem.Abstractions.Exceptions.Base
 
         [Log, Response] public virtual string Code => ExceptionCodesManager.GetString(FriendlyTypeName) ?? String.Empty;
 
-        protected string FriendlyTypeName => GetType().Name.Split('.').First();
+        protected string FriendlyTypeName => GetTypeNameWithoutGenericArity();
+
+        private string GetTypeNameWithoutGenericArity()
+        {
+            var typeName = GetType().Name.Split().First();
+
+            var indexOfAritySign = typeName.IndexOf('`');
+
+            return indexOfAritySign == -1 ? typeName : typeName.Substring(0, indexOfAritySign);
+        }
 
         public JObject GetLogObject()
         {
@@ -48,7 +59,13 @@ namespace SchoolSystem.Abstractions.Exceptions.Base
 
             var jObject = new JObject();
 
-            var jsonSerializer = JsonSerializer.CreateDefault();
+            var jsonSerializer = JsonSerializer.CreateDefault(new JsonSerializerSettings
+            {
+                Converters = new List<JsonConverter>
+                {
+                    new StringEnumConverter()
+                }
+            });
 
             foreach (var propertyInfo in logProperties)
             {

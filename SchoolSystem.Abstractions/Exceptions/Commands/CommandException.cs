@@ -7,11 +7,11 @@ namespace SchoolSystem.Abstractions.Exceptions.Commands
     public abstract class CommandException<TCommand> : SchoolSystemException
         where TCommand : ICommand
     {
-        protected CommandException(ICommand command)
+        protected CommandException(TCommand command)
         {
             Command = command;
         }
 
-        [Log] public ICommand Command { get; }
+        [Log] public TCommand Command { get; }
     }
 }

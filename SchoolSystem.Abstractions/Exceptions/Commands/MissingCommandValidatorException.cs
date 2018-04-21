@@ -5,7 +5,7 @@ namespace SchoolSystem.Abstractions.Exceptions.Commands
     public class MissingCommandValidatorException<TCommand> : CommandException<TCommand>
         where TCommand : ICommand
     {
-        public MissingCommandValidatorException(ICommand command) : base(command)
+        public MissingCommandValidatorException(TCommand command) : base(command)
         {
         }
     }
