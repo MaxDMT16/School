@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using SchoolSystem.Abstractions.Configuration;
@@ -32,9 +33,26 @@ namespace SchoolSystem.WebApi.Logging.Loggers
                     jObject.Add("Message", JToken.FromObject(exception));
                 }
 
+                var httpContext = state as HttpContext;
+
+                if (httpContext != null)
+                {
+                    jObject.Add("TraceIdentifier", httpContext.TraceIdentifier);
+                    jObject.Add("Method", httpContext.Request.Method);
+                }
+
                 jObject.Add("Time", DateTime.UtcNow);
 
+
                 File.AppendAllText(_loggerConfiguration.Path, jObject.ToString());
+            }
+
+            else
+            {
+                if (formatter != null)
+                {
+                    File.AppendAllText(_loggerConfiguration.Path, formatter(state, exception));
+                }
             }
         }
 

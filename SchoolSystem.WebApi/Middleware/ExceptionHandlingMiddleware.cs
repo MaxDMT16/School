@@ -38,34 +38,40 @@ namespace SchoolSystem.WebApi.Middleware
         {
             var responseObject = new JObject
             {
-                ["RequestId"] = Guid.NewGuid()
+                ["TraceIdentifier"] = httpContext.TraceIdentifier
             };
 
-            var statusCode = HttpStatusCode.InternalServerError;
-
-            if (exception is SchoolSystemException schoolSystemException)
+            try
             {
-                var statusCodeAttribute = schoolSystemException.GetType().GetCustomAttribute<StatusCodeAttribute>();
+                var statusCode = HttpStatusCode.InternalServerError;
 
-                statusCode = statusCodeAttribute.StatusCode;
-
-                responseObject.Merge(schoolSystemException.GetResponseObject(), new JsonMergeSettings
+                if (exception is SchoolSystemException schoolSystemException)
                 {
-                    MergeArrayHandling = MergeArrayHandling.Union,
-                    MergeNullValueHandling = MergeNullValueHandling.Merge
-                });
+                    var statusCodeAttribute = schoolSystemException.GetType().GetCustomAttribute<StatusCodeAttribute>();
+
+                    statusCode = statusCodeAttribute.StatusCode;
+
+                    responseObject.Merge(schoolSystemException.GetResponseObject(), new JsonMergeSettings
+                    {
+                        MergeArrayHandling = MergeArrayHandling.Union,
+                        MergeNullValueHandling = MergeNullValueHandling.Merge
+                    });
+                }
+                else
+                {
+                    responseObject["Message"] = "Something went wrong, contact us with RequestId";
+                }
+
+                httpContext.Response.ContentType = "application/json";
+                httpContext.Response.StatusCode = (int) statusCode;
             }
-            else
+            catch (Exception e)
             {
-                responseObject["Message"] = "Something went wrong, contact us with RequestId";
+                _logger.Log(LogLevel.Error, 1, httpContext, exception,
+                    (context, exception1) => "Error while handling exception");
             }
-
-
-            httpContext.Response.ContentType = "application/json";
-            httpContext.Response.StatusCode = (int) statusCode;
 
             _logger.Log(LogLevel.Error, 1, httpContext, exception, (context, exception1) => responseObject.ToString());
-
             await httpContext.Response.WriteAsync(responseObject.ToString());
         }
     }
