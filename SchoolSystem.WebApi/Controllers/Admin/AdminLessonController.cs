@@ -3,12 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolSystem.Abstractions.Contracts.Commands.Lessons;
 using SchoolSystem.Abstractions.Contracts.Queries.Lessons;
 using SchoolSystem.Abstractions.CQRS.Buses;
+using SchoolSystem.Abstractions.Enums;
+using SchoolSystem.WebApi.Attributes;
 using SchoolSystem.WebApi.Controllers.Base;
 
 namespace SchoolSystem.WebApi.Controllers.Admin
 {
     [Produces("application/json")]
     [Route("api/admin/lesson")]
+    [OAuth(ScopeFlag.Admin)]
     public class AdminLessonController : SchoolSystemController
     {
         public AdminLessonController(ICommandBus commandBus, IQueryBus queryBus) : base(commandBus, queryBus)

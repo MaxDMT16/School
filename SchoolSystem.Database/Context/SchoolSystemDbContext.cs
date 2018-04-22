@@ -55,6 +55,11 @@ namespace SchoolSystem.Database.Context
             modelBuilder.Entity<ScheduleCell>()
                 .Property(g => g.Id)
                 .ValueGeneratedOnAdd();
+
+
+            modelBuilder.Entity<CmsUser>()
+                .Property(g => g.Id)
+                .ValueGeneratedOnAdd();
         }
 
         public DbSet<Group> Groups { get; set; }
@@ -62,5 +67,6 @@ namespace SchoolSystem.Database.Context
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<ScheduleCell> ScheduleCells { get; set; }
+        public DbSet<CmsUser> CmsUsers { get; set; }
     }
 }

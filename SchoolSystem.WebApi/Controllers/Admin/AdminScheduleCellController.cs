@@ -7,12 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolSystem.Abstractions.Contracts.Commands.ScheduleCells;
 using SchoolSystem.Abstractions.Contracts.Queries.ScheduleCells;
 using SchoolSystem.Abstractions.CQRS.Buses;
+using SchoolSystem.Abstractions.Enums;
+using SchoolSystem.WebApi.Attributes;
 using SchoolSystem.WebApi.Controllers.Base;
 
 namespace SchoolSystem.WebApi.Controllers.Admin
 {
     [Produces("application/json")]
     [Route("api/admin/schedule-cell")]
+    [OAuth(ScopeFlag.Admin)]
     public class AdminScheduleCellController : SchoolSystemController
     {
         public AdminScheduleCellController(ICommandBus commandBus, IQueryBus queryBus) : base(commandBus, queryBus)

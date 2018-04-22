@@ -11,5 +11,6 @@ namespace SchoolSystem.Database.Context
         DbSet<Teacher> Teachers { get; set; }
         DbSet<Lesson> Lessons { get; set; }
         DbSet<ScheduleCell> ScheduleCells { get; set; }
+        DbSet<CmsUser> CmsUsers { get; set; }
     }
 }
