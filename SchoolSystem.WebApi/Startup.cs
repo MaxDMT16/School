@@ -20,6 +20,7 @@ using SchoolSystem.WebApi.Configuration;
 using SchoolSystem.WebApi.Logging;
 using SchoolSystem.WebApi.Logging.Providers;
 using SchoolSystem.WebApi.Middleware;
+using SchoolSystem.WebApi.OperationFilters;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace SchoolSystem.WebApi
@@ -46,6 +47,7 @@ namespace SchoolSystem.WebApi
                 c.SwaggerDoc("v1", new Info {Title = "SchoolSystem API", Version = "v1"});
                 c.CustomSchemaIds(x => x.FullName);
                 c.DescribeAllEnumsAsStrings();
+                c.OperationFilter<AuthorizationOperationFilter>();
             });
 
             var containerBuilder = new ContainerBuilder();

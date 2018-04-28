@@ -61,6 +61,51 @@ namespace SchoolSystem.Abstractions.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while decoding access token.
+        /// </summary>
+        internal static string AccessTokenDecodingException {
+            get {
+                return ResourceManager.GetString("AccessTokenDecodingException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access token has expired.
+        /// </summary>
+        internal static string AccessTokenExpiredException {
+            get {
+                return ResourceManager.GetString("AccessTokenExpiredException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decoded life time ticks is not equls to expected ticks.
+        /// </summary>
+        internal static string AccessTokenLifetimeMismatchException {
+            get {
+                return ResourceManager.GetString("AccessTokenLifetimeMismatchException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Received access token has no scopes in headers.
+        /// </summary>
+        internal static string AccessTokenWithoutScopesException {
+            get {
+                return ResourceManager.GetString("AccessTokenWithoutScopesException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorization header is required for this request type.
+        /// </summary>
+        internal static string AuthorizationHeaderRequiredException {
+            get {
+                return ResourceManager.GetString("AuthorizationHeaderRequiredException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t resolve command handler.
         /// </summary>
         internal static string CommandHandlerNotFoundException {
@@ -84,6 +129,24 @@ namespace SchoolSystem.Abstractions.Exceptions {
         internal static string EntityNotFoundException {
             get {
                 return ResourceManager.GetString("EntityNotFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Received access token is invalid.
+        /// </summary>
+        internal static string InvalidAccessTokenException {
+            get {
+                return ResourceManager.GetString("InvalidAccessTokenException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Received scope does not have enough permission.
+        /// </summary>
+        internal static string InvalidAccessTokenScopeException {
+            get {
+                return ResourceManager.GetString("InvalidAccessTokenScopeException", resourceCulture);
             }
         }
         

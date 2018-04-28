@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessTokenDecodingException" xml:space="preserve">
+    <value>Error while decoding access token</value>
+  </data>
+  <data name="AccessTokenExpiredException" xml:space="preserve">
+    <value>Access token has expired</value>
+  </data>
+  <data name="AccessTokenLifetimeMismatchException" xml:space="preserve">
+    <value>Decoded life time ticks is not equls to expected ticks</value>
+  </data>
+  <data name="AccessTokenWithoutScopesException" xml:space="preserve">
+    <value>Received access token has no scopes in headers</value>
+  </data>
+  <data name="AuthorizationHeaderRequiredException" xml:space="preserve">
+    <value>Authorization header is required for this request type</value>
+  </data>
   <data name="CommandHandlerNotFoundException" xml:space="preserve">
     <value>Can't resolve command handler</value>
   </data>
@@ -125,6 +140,12 @@
   </data>
   <data name="EntityNotFoundException" xml:space="preserve">
     <value>Entity of selected type not found</value>
+  </data>
+  <data name="InvalidAccessTokenException" xml:space="preserve">
+    <value>Received access token is invalid</value>
+  </data>
+  <data name="InvalidAccessTokenScopeException" xml:space="preserve">
+    <value>Received scope does not have enough permission</value>
   </data>
   <data name="MissingCommandValidatorException" xml:space="preserve">
     <value>Command validator is missed or not registred</value>

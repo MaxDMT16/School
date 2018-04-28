@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessTokenDecodingException" xml:space="preserve">
+    <value>ss-0008</value>
+  </data>
+  <data name="AccessTokenExpiredException" xml:space="preserve">
+    <value>ss-0012</value>
+  </data>
+  <data name="AccessTokenLifetimeMismatchException" xml:space="preserve">
+    <value>ss-0011</value>
+  </data>
+  <data name="AccessTokenWithoutScopesException" xml:space="preserve">
+    <value>ss-0009</value>
+  </data>
+  <data name="AuthorizationHeaderRequiredException" xml:space="preserve">
+    <value>ss-0006</value>
+  </data>
   <data name="CommandHandlerNotFoundException" xml:space="preserve">
     <value>ss-0004</value>
   </data>
@@ -125,6 +140,12 @@
   </data>
   <data name="EntityNotFoundException" xml:space="preserve">
     <value>ss-0001</value>
+  </data>
+  <data name="InvalidAccessTokenException" xml:space="preserve">
+    <value>ss-0007</value>
+  </data>
+  <data name="InvalidAccessTokenScopeException" xml:space="preserve">
+    <value>ss-0010</value>
   </data>
   <data name="MissingCommandValidatorException" xml:space="preserve">
     <value>ss-0005</value>

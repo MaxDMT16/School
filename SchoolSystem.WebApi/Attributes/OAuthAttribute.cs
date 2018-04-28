@@ -3,12 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
-using SchoolSystem.Abstractions.Authorization.Scopes;
 using SchoolSystem.Abstractions.Authorization.Services;
 using SchoolSystem.Abstractions.Contracts.Queries.CmsUsers;
 using SchoolSystem.Abstractions.CQRS.Buses;
 using SchoolSystem.Abstractions.Enums;
-using SchoolSystem.Application.Buses;
+using SchoolSystem.Abstractions.Exceptions.Authorization;
 using SchoolSystem.Domain.Authorization.Services;
 using SchoolSystem.WebApi.Controllers.Base;
 
@@ -28,7 +27,7 @@ namespace SchoolSystem.WebApi.Attributes
         {
             if (!context.HttpContext.Request.Headers.TryGetValue("Authorization", out var authorization))
             {
-                throw new InvalidOperationException(); //AuthorizationHeaderRequiredException();
+                throw new AuthorizationHeaderRequiredException();
             }
 
             var accessToken = authorization.First();
@@ -52,6 +51,7 @@ namespace SchoolSystem.WebApi.Attributes
         private async Task<string> GetAccessTokenKey(ActionExecutingContext context, CmsTokenPayload payload)
         {
             var queryBus = context.HttpContext.RequestServices.GetRequiredService<IQueryBus>();
+
             var refreshTokenByIdQuery = new RefreshTokenByIdQuery
             {
                 Id = payload.UserId

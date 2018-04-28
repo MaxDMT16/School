@@ -61,6 +61,51 @@ namespace SchoolSystem.Abstractions.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ss-0008.
+        /// </summary>
+        internal static string AccessTokenDecodingException {
+            get {
+                return ResourceManager.GetString("AccessTokenDecodingException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ss-0012.
+        /// </summary>
+        internal static string AccessTokenExpiredException {
+            get {
+                return ResourceManager.GetString("AccessTokenExpiredException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ss-0011.
+        /// </summary>
+        internal static string AccessTokenLifetimeMismatchException {
+            get {
+                return ResourceManager.GetString("AccessTokenLifetimeMismatchException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ss-0009.
+        /// </summary>
+        internal static string AccessTokenWithoutScopesException {
+            get {
+                return ResourceManager.GetString("AccessTokenWithoutScopesException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ss-0006.
+        /// </summary>
+        internal static string AuthorizationHeaderRequiredException {
+            get {
+                return ResourceManager.GetString("AuthorizationHeaderRequiredException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ss-0004.
         /// </summary>
         internal static string CommandHandlerNotFoundException {
@@ -84,6 +129,24 @@ namespace SchoolSystem.Abstractions.Exceptions {
         internal static string EntityNotFoundException {
             get {
                 return ResourceManager.GetString("EntityNotFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ss-0007.
+        /// </summary>
+        internal static string InvalidAccessTokenException {
+            get {
+                return ResourceManager.GetString("InvalidAccessTokenException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ss-0010.
+        /// </summary>
+        internal static string InvalidAccessTokenScopeException {
+            get {
+                return ResourceManager.GetString("InvalidAccessTokenScopeException", resourceCulture);
             }
         }
         

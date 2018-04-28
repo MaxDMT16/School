@@ -8,6 +8,7 @@ using SchoolSystem.Abstractions.Authorization.Scopes;
 using SchoolSystem.Abstractions.Authorization.Services;
 using SchoolSystem.Abstractions.Configuration;
 using SchoolSystem.Abstractions.Enums;
+using SchoolSystem.Abstractions.Exceptions.Authorization;
 using SchoolSystem.Abstractions.Exceptions.Base;
 
 namespace SchoolSystem.Domain.Authorization.Services
@@ -83,7 +84,7 @@ namespace SchoolSystem.Domain.Authorization.Services
             }
             catch (JoseException e)
             {
-                throw new InvalidOperationException(); //InvalidAccessTokenException(e);
+                throw new InvalidAccessTokenException(e);
             }
             catch (SchoolSystemException)
             {
@@ -91,7 +92,7 @@ namespace SchoolSystem.Domain.Authorization.Services
             }
             catch (Exception e)
             {
-                throw new InvalidOperationException(); //AccessTokenDecodingException(e);
+                throw new AccessTokenDecodingException(e);
             }
         }
 
@@ -102,14 +103,14 @@ namespace SchoolSystem.Domain.Authorization.Services
 
             if (!isScopesHeaderExist)
             {
-                throw new InvalidOperationException(); //AccessTokenWithoutScopesException(headersDictionary);
+                throw new AccessTokenWithoutScopesException(headers);
             }
 
             var scope = value.ToObject<ScopeFlag>();
 
             if (requiredScope > scope)
             {
-                throw new InvalidOperationException(); //AccessTokenScopeMissException(tokenScopes);
+                throw new InvalidAccessTokenScopeException(scope);
             }
         }
 
@@ -119,14 +120,14 @@ namespace SchoolSystem.Domain.Authorization.Services
             if (payload.LifeTimeTicks != _configuration.LifeTime.Ticks)
             {
                 throw
-                    new InvalidOperationException(); //AccessTokenLifetimeMismatchException(payload.LifeTimeTicks, _configuration.Lifetime.Ticks);
+                    new AccessTokenLifetimeMismatchException(payload.LifeTimeTicks, _configuration.LifeTime.Ticks);
             }
 
             var expirationDate = payload.CreationDate.AddTicks(payload.LifeTimeTicks);
 
             if (expirationDate < DateTime.UtcNow)
             {
-                throw new InvalidOperationException(); //AccessTokenExpiredException(expireTime);
+                throw new AccessTokenExpiredException(expirationDate);
             }
         }
 
@@ -143,11 +144,11 @@ namespace SchoolSystem.Domain.Authorization.Services
             }
             catch (JoseException e)
             {
-                throw new InvalidOperationException(); //InvalidAccessTokenException(e);
+                throw new InvalidAccessTokenException(e);
             }
             catch (Exception e)
             {
-                throw new InvalidOperationException(); //AccessTokenDecodingException(e);
+                throw new AccessTokenDecodingException(e);
             }
         }
     }
