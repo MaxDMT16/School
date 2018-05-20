@@ -34,7 +34,7 @@ namespace SchoolSystem.WebApi.Controllers.Public
         }
 
         [HttpPost]
-        public async Task<LoginResponseModel> Login(LoginRequestModel model)
+        public async Task<LoginResponseModel> Login([FromBody] LoginRequestModel model)
         {
             var cmsUserIdAndScopeByCredentialsQuery = new CmsUserIdAndScopeByCredentialsQuery
             {

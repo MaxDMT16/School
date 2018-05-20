@@ -11,6 +11,7 @@ namespace SchoolSystem.WebApi.Logging.Loggers
     public class FileLogger : ILogger
     {
         private readonly ILoggerConfiguration _loggerConfiguration;
+        private readonly object locker = new object();
 
         public FileLogger(ILoggerConfiguration loggerConfiguration)
         {
@@ -43,8 +44,10 @@ namespace SchoolSystem.WebApi.Logging.Loggers
 
                 jObject.Add("Time", DateTime.UtcNow);
 
-
-                File.AppendAllText(_loggerConfiguration.Path, jObject.ToString());
+                lock (locker)
+                {
+                    File.AppendAllText(_loggerConfiguration.Path, jObject.ToString());
+                }
             }
 
             else

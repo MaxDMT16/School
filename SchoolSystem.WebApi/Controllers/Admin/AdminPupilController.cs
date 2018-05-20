@@ -23,13 +23,13 @@ namespace SchoolSystem.WebApi.Controllers.Admin
         }
 
         [HttpPost]
-        public async Task CreatePupil(CreatePupilCommand command)
+        public async Task CreatePupil([FromBody] CreatePupilCommand command)
         {
             await CommandBus.Execute(command);
         }
 
         [HttpPut]
-        public async Task UpdatePupil(UpdatePupilCommand command)
+        public async Task UpdatePupil([FromBody] UpdatePupilCommand command)
         {
             await CommandBus.Execute(command);
         }
@@ -53,6 +53,18 @@ namespace SchoolSystem.WebApi.Controllers.Admin
             var pupilsResponse = await QueryBus.Execute<PupilsQuery, PupilsResponse>(new PupilsQuery());
 
             return pupilsResponse;
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<PupilResponse> GetPupilById(Guid id)
+        {
+            var pupilResponse = await QueryBus.Execute<PupilByIdQuery, PupilResponse>(new PupilByIdQuery
+            {
+                Id = id
+            });
+
+            return pupilResponse;
         }
     }
 }
