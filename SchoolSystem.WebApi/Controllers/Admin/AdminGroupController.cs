@@ -23,13 +23,13 @@ namespace SchoolSystem.WebApi.Controllers.Admin
         }
 
         [HttpPost]
-        public async Task CreateGroup(CreateGroupCommand command)
+        public async Task CreateGroup([FromBody] CreateGroupCommand command)
         {
             await CommandBus.Execute(command);
         }
 
         [HttpPut]
-        public async Task UpdateGroup(UpdateGroupCommand command)
+        public async Task UpdateGroup([FromBody] UpdateGroupCommand command)
         {
             await CommandBus.Execute(command);
         }
@@ -46,6 +46,18 @@ namespace SchoolSystem.WebApi.Controllers.Admin
             var groupsResponse = await QueryBus.Execute<GroupsQuery, GroupsResponse>(new GroupsQuery());
 
             return groupsResponse;
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<GroupResponse> GetGroupById(Guid id)
+        {
+            var groupResponse = await QueryBus.Execute<GroupByIdQuery, GroupResponse>(new GroupByIdQuery
+            {
+                Id = id
+            });
+
+            return groupResponse;
         }
     }
 }
