@@ -54,7 +54,10 @@ namespace SchoolSystem.WebApi.Logging.Loggers
             {
                 if (formatter != null)
                 {
-                    File.AppendAllText(_loggerConfiguration.Path, formatter(state, exception));
+                    lock (locker)
+                    {
+                        File.AppendAllText(_loggerConfiguration.Path, formatter(state, exception));
+                    }
                 }
             }
         }
