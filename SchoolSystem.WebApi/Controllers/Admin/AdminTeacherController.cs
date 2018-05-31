@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SchoolSystem.Abstractions.Contracts.Commands.Teachers;
 using SchoolSystem.Abstractions.Contracts.Queries.Teachers;
@@ -19,20 +20,26 @@ namespace SchoolSystem.WebApi.Controllers.Admin
         }
 
         [HttpPost]
-        public async Task CreateTeacher(CreateTeacherCommand command)
+        public async Task CreateTeacher([FromBody] CreateTeacherCommand command)
         {
             await CommandBus.Execute(command);
         }
 
         [HttpPut]
-        public async Task UpdateTeacher(UpdateTeacherCommand command)
+        public async Task UpdateTeacher([FromBody] UpdateTeacherCommand command)
         {
             await CommandBus.Execute(command);
         }
 
         [HttpDelete]
-        public async Task DeleteTeacher(DeleteTeacherCommand command)
+        [Route("{id}")]
+        public async Task DeleteTeacher(Guid id)
         {
+            var command = new DeleteTeacherCommand
+            {
+                Id = id
+            };
+
             await CommandBus.Execute(command);
         }
 
