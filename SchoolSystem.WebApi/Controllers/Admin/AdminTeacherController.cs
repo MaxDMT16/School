@@ -32,7 +32,6 @@ namespace SchoolSystem.WebApi.Controllers.Admin
         }
 
         [HttpDelete]
-        [Route("{id}")]
         public async Task DeleteTeacher(Guid id)
         {
             var command = new DeleteTeacherCommand
