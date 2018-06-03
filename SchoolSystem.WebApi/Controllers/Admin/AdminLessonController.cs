@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SchoolSystem.Abstractions.Contracts.Commands.Lessons;
 using SchoolSystem.Abstractions.Contracts.Queries.Lessons;
@@ -19,20 +20,25 @@ namespace SchoolSystem.WebApi.Controllers.Admin
         }
 
         [HttpPost]
-        public async Task CreateLesson(CreateLessonCommand command)
+        public async Task CreateLesson([FromBody] CreateLessonCommand command)
         {
             await CommandBus.Execute(command);
         }
 
         [HttpPut]
-        public async Task UpdateLesson(UpdateLessonCommand command)
+        public async Task UpdateLesson([FromBody] UpdateLessonCommand command)
         {
             await CommandBus.Execute(command);
         }
 
         [HttpDelete]
-        public async Task DeleteLesson(DeleteLessonCommand command)
+        public async Task DeleteLesson(Guid id)
         {
+            var command = new DeleteLessonCommand
+            {
+                Id = id
+            };
+
             await CommandBus.Execute(command);
         }
 
@@ -42,6 +48,18 @@ namespace SchoolSystem.WebApi.Controllers.Admin
             var lessonsResponse = await QueryBus.Execute<LessonsQuery, LessonsResponse>(new LessonsQuery());
 
             return lessonsResponse;
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<LessonResponse> GetLessongById(Guid id)
+        {
+            var lessonResponse = await QueryBus.Execute<LessonByIdQuery, LessonResponse>(new LessonByIdQuery
+            {
+                Id = id
+            });
+
+            return lessonResponse;
         }
     }
 }

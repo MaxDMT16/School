@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Converters;
 using SchoolSystem.Abstractions.Configuration;
 using SchoolSystem.Application;
 using SchoolSystem.Database;
@@ -40,7 +41,10 @@ namespace SchoolSystem.WebApi
             services.AddDbContext<SchoolSystemDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SchoolSystem")));
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.Converters.Add(new StringEnumConverter());
+            });
 
             services.AddSwaggerGen(c =>
             {
