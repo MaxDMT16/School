@@ -50,5 +50,17 @@ namespace SchoolSystem.WebApi.Controllers.Admin
 
             return teachersResponse;
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<TeacherResponse> GetTeacherById(Guid id)
+        {
+            var teacherResponse = await QueryBus.Execute<TeacherByIdQuery, TeacherResponse>(new TeacherByIdQuery
+            {
+                Id = id
+            });
+
+            return teacherResponse;
+        }
     }
 }
