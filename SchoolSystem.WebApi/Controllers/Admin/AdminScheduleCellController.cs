@@ -23,13 +23,13 @@ namespace SchoolSystem.WebApi.Controllers.Admin
         }
 
         [HttpPost]
-        public async Task CreateScheduleCell(CreateScheduleCellCommand command)
+        public async Task CreateScheduleCell([FromBody] CreateScheduleCellCommand command)
         {
             await CommandBus.Execute(command);
         }
 
         [HttpPut]
-        public async Task UpdateScheduleCell(UpdateScheduleCellCommand command)
+        public async Task UpdateScheduleCell([FromBody] UpdateScheduleCellCommand command)
         {
             await CommandBus.Execute(command);
         }
@@ -47,6 +47,18 @@ namespace SchoolSystem.WebApi.Controllers.Admin
                 await QueryBus.Execute<ScheduleCellsQuery, ScheduleCellsResponse>(new ScheduleCellsQuery());
 
             return scheduleCellsResponse;
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ScheduleCellResponse> GetCellById(Guid id)
+        {
+            var scheduleCellResponse = await QueryBus.Execute<ScheduleCellByIdQuery, ScheduleCellResponse>(new ScheduleCellByIdQuery
+            {
+                Id = id
+            });
+
+            return scheduleCellResponse;
         }
     }
 }
