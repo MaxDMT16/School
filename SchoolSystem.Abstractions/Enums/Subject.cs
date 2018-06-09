@@ -4,6 +4,8 @@
     {
         Math,
         English,
-        Chemistry
+        Chemistry,
+        Physics,
+        Biology
     }
 }

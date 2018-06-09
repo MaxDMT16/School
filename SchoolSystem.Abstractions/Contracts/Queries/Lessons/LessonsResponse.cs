@@ -12,20 +12,9 @@ namespace SchoolSystem.Abstractions.Contracts.Queries.Lessons
         public class Lesson
         {
             public Guid Id { get; set; }
-            public Group Group { get; set; }
-            public Teacher Teacher { get; set; }
+            public Guid GroupId { get; set; }
+            public Guid TeacherId { get; set; }
             public Subject Subject { get; set; }
-        }
-
-        public class Group
-        {
-            public string Name { get; set; }
-        }
-
-        public class Teacher
-        {
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
         }
     }
 }

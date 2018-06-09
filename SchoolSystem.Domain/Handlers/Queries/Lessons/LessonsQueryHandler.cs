@@ -15,24 +15,12 @@ namespace SchoolSystem.Domain.Handlers.Queries.Lessons
 
         public override async Task<LessonsResponse> Execute(LessonsQuery query)
         {
-            var lessons = await DbContext.Lessons.Include(l => l.Group)
-                .Include(l => l.Teacher)
+            var lessons = await DbContext.Lessons
                 .Select(l => new LessonsResponse.Lesson
                 {
                     Id = l.Id,
-                    Teacher = l.Teacher != null
-                        ? new LessonsResponse.Teacher
-                        {
-                            FirstName = l.Teacher.FirstName,
-                            LastName = l.Teacher.LastName
-                        }
-                        : null,
-                    Group = l.Group != null
-                        ? new LessonsResponse.Group
-                        {
-                            Name = l.Group.Name
-                        }
-                        : null,
+                    TeacherId = l.TeacherId,
+                    GroupId = l.GroupId,
                     Subject = l.Subject
                 }).ToListAsync();
 
