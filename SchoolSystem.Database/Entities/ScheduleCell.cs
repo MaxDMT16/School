@@ -10,7 +10,7 @@ namespace SchoolSystem.Database.Entities
 
         public Lesson Lesson { get; set; }
 
-        public byte LessonNumber { get; set; }
+        public int LessonNumber { get; set; }
 
         public DayOfWeek Day { get; set; }
 

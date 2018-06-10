@@ -7,7 +7,7 @@ namespace SchoolSystem.Abstractions.Contracts.Commands.ScheduleCells
     {
         public Guid Id { get; set; }
         public Guid? LessonId { get; set; }
-        public byte? LessonNumber { get; set; }
+        public int? LessonNumber { get; set; }
         public DayOfWeek? Day { get; set; }
         public int? Room { get; set; }
     }

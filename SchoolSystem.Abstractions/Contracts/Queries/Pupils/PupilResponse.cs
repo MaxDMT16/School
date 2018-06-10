@@ -8,6 +8,12 @@ namespace SchoolSystem.Abstractions.Contracts.Queries.Pupils
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Guid GroupId { get; set; }
+        public PupilGroup Group { get; set; }
+
+        public class PupilGroup
+        {
+            public Guid Id { get; set; }
+            public string Name { get; set; }
+        }
     }
 }

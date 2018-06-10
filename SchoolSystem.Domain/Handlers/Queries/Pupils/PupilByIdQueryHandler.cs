@@ -14,14 +14,20 @@ namespace SchoolSystem.Domain.Handlers.Queries.Pupils
 
         public override async Task<PupilResponse> Execute(PupilByIdQuery query)
         {
-            var fetchedPupil = await DbContext.Pupils.FirstOrDefaultAsync(pupil => pupil.Id == query.Id);
+            var fetchedPupil = await DbContext.Pupils
+                .Include(pupil => pupil.Group)
+                .FirstOrDefaultAsync(pupil => pupil.Id == query.Id);
 
             return new PupilResponse
             {
                 Id = fetchedPupil.Id,
                 FirstName = fetchedPupil.FirstName,
                 LastName = fetchedPupil.LastName,
-                GroupId = fetchedPupil.GroupId
+                Group = new PupilResponse.PupilGroup
+                {
+                    Id = fetchedPupil.GroupId,
+                    Name = fetchedPupil.Group.Name
+                }
             };
         }
     }
