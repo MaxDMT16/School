@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using SchoolSystem.Abstractions.Enums;
 using SchoolSystem.Database.Entities.Users;
@@ -18,5 +20,7 @@ namespace SchoolSystem.Database.Entities
         public Group Group { get; set; }
 
         public Subject Subject { get; set; }
+
+        public ICollection<ScheduleCell> ScheduleCells { get; set; }
     }
 }

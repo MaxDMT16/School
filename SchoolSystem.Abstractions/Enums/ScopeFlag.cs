@@ -5,8 +5,9 @@ namespace SchoolSystem.Abstractions.Enums
     [Flags]
     public enum ScopeFlag
     {
-        Teacher = 1 << 0,
-        Admin = 1 << 1,
-        Master = 1 << 2
+        Pupil = 1 << 0,
+        Teacher = 1 << 1,
+        Admin = 1 << 2,
+        Master = 1 << 3
     }
 }

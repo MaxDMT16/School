@@ -139,7 +139,7 @@ namespace SchoolSystem.Database.Migrations
             modelBuilder.Entity("SchoolSystem.Database.Entities.ScheduleCell", b =>
                 {
                     b.HasOne("SchoolSystem.Database.Entities.Lesson", "Lesson")
-                        .WithMany()
+                        .WithMany("ScheduleCells")
                         .HasForeignKey("LessonId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
