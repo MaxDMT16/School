@@ -49,17 +49,6 @@ namespace SchoolSystem.WebApi.Logging.Loggers
                     File.AppendAllText(_loggerConfiguration.Path, jObject.ToString());
                 }
             }
-
-            else
-            {
-                if (formatter != null)
-                {
-                    lock (locker)
-                    {
-                        File.AppendAllText(_loggerConfiguration.Path, formatter(state, exception));
-                    }
-                }
-            }
         }
 
         public bool IsEnabled(LogLevel logLevel) => true;
