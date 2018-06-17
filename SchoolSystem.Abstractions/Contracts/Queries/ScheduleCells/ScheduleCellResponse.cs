@@ -9,6 +9,6 @@ namespace SchoolSystem.Abstractions.Contracts.Queries.ScheduleCells
         public Guid LessonId { get; set; }
         public int LessonNumber { get; set; }
         public DayOfWeek Day { get; set; }
-        public int Room { get; set; }
+        public string Room { get; set; }
     }
 }

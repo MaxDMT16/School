@@ -12,5 +12,7 @@ namespace SchoolSystem.Database.Context
         DbSet<Lesson> Lessons { get; set; }
         DbSet<ScheduleCell> ScheduleCells { get; set; }
         DbSet<CmsUser> CmsUsers { get; set; }
+        DbSet<TeacherLesson> TeachersLessons { get; set; }
+        DbSet<Subject> Subjects { get; set; }
     }
 }

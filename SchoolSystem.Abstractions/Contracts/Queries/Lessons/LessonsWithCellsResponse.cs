@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using SchoolSystem.Abstractions.CQRS.Contracts;
-using SchoolSystem.Abstractions.Enums;
 
 namespace SchoolSystem.Abstractions.Contracts.Queries.Lessons
 {
@@ -31,12 +30,18 @@ namespace SchoolSystem.Abstractions.Contracts.Queries.Lessons
             public string LastName { get; set; }
         }
 
+        public class Subject
+        {
+            public Guid Id { get; set; }
+            public string Name { get; set; }
+        }
+
         public class ScheduleCell
         {
             public Guid Id { get; set; }
             public int LessonNumber { get; set; }
             public DayOfWeek Day { get; set; }
-            public int Room { get; set; }
+            public string Room { get; set; }
         }
     }
 }

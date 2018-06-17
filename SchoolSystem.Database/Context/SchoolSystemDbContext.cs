@@ -60,6 +60,17 @@ namespace SchoolSystem.Database.Context
             modelBuilder.Entity<CmsUser>()
                 .Property(g => g.Id)
                 .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Subject>()
+                .Property(s => s.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<TeacherLesson>()
+                .HasKey(tl => new {tl.TeacherId, tl.LessonId});
+
+            modelBuilder.Entity<Subject>()
+                .Property(s => s.Id)
+                .ValueGeneratedOnAdd();
         }
 
         public DbSet<Group> Groups { get; set; }
@@ -68,5 +79,7 @@ namespace SchoolSystem.Database.Context
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<ScheduleCell> ScheduleCells { get; set; }
         public DbSet<CmsUser> CmsUsers { get; set; }
+        public DbSet<TeacherLesson> TeachersLessons { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
     }
 }

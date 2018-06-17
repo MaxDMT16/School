@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Abstractions.Contracts.Queries.Lessons;
 using SchoolSystem.Abstractions.Exceptions.Queries;
@@ -16,7 +17,10 @@ namespace SchoolSystem.Domain.Handlers.Queries.Lessons
 
         public override async Task<LessonResponse> Execute(LessonByIdQuery query)
         {
-            var resultLesson = await DbContext.Lessons.FirstOrDefaultAsync(lesson => lesson.Id == query.Id);
+            var resultLesson = await DbContext.Lessons
+                .Include(lesson => lesson.Subject)
+                .Include(lesson => lesson.TeachersLessons)
+                .FirstOrDefaultAsync(lesson => lesson.Id == query.Id);
 
             if (resultLesson == null)
             {
@@ -27,8 +31,12 @@ namespace SchoolSystem.Domain.Handlers.Queries.Lessons
             {
                 Id = resultLesson.Id,
                 GroupId = resultLesson.GroupId,
-                Subject = resultLesson.Subject,
-                TeacherId = resultLesson.TeacherId
+                Subject = new LessonResponse.SubjectInfo
+                {
+                    Id = resultLesson.SubjectId,
+                    Name = resultLesson.Subject.Name
+                },
+                TeacherIds = resultLesson.TeachersLessons.Select(teacherLesson => teacherLesson.TeacherId).ToList()
             };
         }
     }

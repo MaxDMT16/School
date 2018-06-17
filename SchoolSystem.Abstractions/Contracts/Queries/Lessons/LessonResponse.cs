@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using SchoolSystem.Abstractions.CQRS.Contracts;
-using SchoolSystem.Abstractions.Enums;
 
 namespace SchoolSystem.Abstractions.Contracts.Queries.Lessons
 {
@@ -8,10 +8,17 @@ namespace SchoolSystem.Abstractions.Contracts.Queries.Lessons
     {
         public Guid Id { get; set; }
 
-        public Guid TeacherId { get; set; }
+        public ICollection<Guid> TeacherIds { get; set; }
         
         public Guid GroupId { get; set; }
 
-        public Subject Subject { get; set; }
+        public SubjectInfo Subject { get; set; }
+
+        public class SubjectInfo
+        {
+            public Guid Id { get; set; }
+            public string Name { get; set; }
+        }
     }
+
 }

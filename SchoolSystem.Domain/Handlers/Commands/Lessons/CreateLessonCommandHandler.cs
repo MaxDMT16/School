@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using SchoolSystem.Abstractions.Contracts.Commands.Lessons;
 using SchoolSystem.Database.Context;
 using SchoolSystem.Database.Entities;
@@ -17,9 +18,17 @@ namespace SchoolSystem.Domain.Handlers.Commands.Lessons
             var lesson = new Lesson
             {
                 GroupId = command.GroupId,
-                TeacherId = command.TeacherId,
-                Subject = command.Subject
+                SubjectId = command.SubjectId,
+                TeachersLessons = new List<TeacherLesson>()
             };
+
+            foreach (var teacherId in command.TeacherIds)
+            {
+                lesson.TeachersLessons.Add(new TeacherLesson
+                {
+                    TeacherId = teacherId
+                });
+            }
 
             DbContext.Lessons.Add(lesson);
 

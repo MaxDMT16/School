@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Abstractions.Contracts.Commands.Lessons;
@@ -17,16 +19,40 @@ namespace SchoolSystem.Domain.Handlers.Commands.Lessons
 
         public override async Task Execute(UpdateLessonCommand command)
         {
-            var lesson = await DbContext.Lessons.FirstOrDefaultAsync(l => l.Id == command.Id);
+            var lesson = await DbContext.Lessons
+                .Include(l => l.TeachersLessons)
+                .FirstOrDefaultAsync(l => l.Id == command.Id);
 
             if (lesson == null)
             {
                 throw new EntityNotFoundException<Lesson, UpdateLessonCommand>(command);
             }
 
-            lesson.TeacherId = command.TeacherId ?? lesson.TeacherId;
+            if (command.TeacherIds != null)
+            {
+                var teachersIds = lesson.TeachersLessons
+                    .Select(teacherLesson => teacherLesson.TeacherId);
+
+                var teacherIdsToDeleteFromTeachersLessons = teachersIds.Except(command.TeacherIds).ToList();
+
+                var teacherLessonsToDelete = lesson.TeachersLessons.Where(teacherLesson =>
+                    teacherIdsToDeleteFromTeachersLessons.Contains(teacherLesson.TeacherId)).ToList();
+
+                DbContext.TeachersLessons.RemoveRange(teacherLessonsToDelete);
+
+                var teacherIdsToAdd = command.TeacherIds.Except(teachersIds).ToList();
+
+                foreach (var teacherId in teacherIdsToAdd)
+                {
+                    lesson.TeachersLessons.Add(new TeacherLesson
+                    {
+                        TeacherId = teacherId
+                    });
+                }
+            }
+
             lesson.GroupId = command.GroupId ?? lesson.GroupId;
-            lesson.Subject = command.Subject ?? lesson.Subject;
+            lesson.SubjectId = command.SubjectId ?? lesson.SubjectId;
 
             await DbContext.SaveChangesAsync();
         }

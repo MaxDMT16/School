@@ -7,7 +7,9 @@ using SchoolSystem.Database.Handlers;
 
 namespace SchoolSystem.Domain.Handlers.Queries.Lessons
 {
-    public class LessonByGroupIdQueryHandler : QueryHandlerBase<LessonsByGroupIdQuery, LessonsWithCellsResponse>
+    public class
+        LessonByGroupIdQueryHandler : QueryHandlerBase<LessonsByGroupIdQuery, LessonsWithCellsResponse
+        > //todo: refactor with dapper
     {
         public LessonByGroupIdQueryHandler(ISchoolSystemDbContext dbContext) : base(dbContext)
         {
@@ -15,33 +17,38 @@ namespace SchoolSystem.Domain.Handlers.Queries.Lessons
 
         public override async Task<LessonsWithCellsResponse> Execute(LessonsByGroupIdQuery query)
         {
-            var lessons = await DbContext.Lessons
-                .Include(lesson => lesson.Group)
-                .Include(lesson => lesson.Teacher)
-                .Include(lesson => lesson.ScheduleCells)
-                .Where(lesson => lesson.GroupId == query.Id)
-                .Select(lesson => new LessonsWithCellsResponse.Lesson
+            var lessons = await DbContext.TeachersLessons
+                .Include(teacherLesson => teacherLesson.Lesson)
+                .Include(teacherLesson => teacherLesson.Lesson.Group)
+                .Include(teacherLesson => teacherLesson.Teacher)
+                .Where(teacherLesson => teacherLesson.Lesson.GroupId == query.Id)
+                .Select(teacherLesson => new LessonsWithCellsResponse.Lesson
                 {
-                    Id = lesson.Id,
+                    Id = teacherLesson.LessonId,
                     Teacher = new LessonsWithCellsResponse.Teacher
                     {
-                        Id = lesson.Teacher.Id,
-                        LastName = lesson.Teacher.LastName,
-                        FirstName = lesson.Teacher.FirstName
+                        Id = teacherLesson.Teacher.Id,
+                        LastName = teacherLesson.Teacher.LastName,
+                        FirstName = teacherLesson.Teacher.FirstName
                     },
                     Group = new LessonsWithCellsResponse.Group
                     {
-                        Id = lesson.Group.Id,
-                        Name = lesson.Group.Name
+                        Id = teacherLesson.Lesson.Group.Id,
+                        Name = teacherLesson.Lesson.Group.Name
                     },
-                    Subject = lesson.Subject,
-                    ScheduleCells = lesson.ScheduleCells.Select(cell => new LessonsWithCellsResponse.ScheduleCell
+                    Subject = new LessonsWithCellsResponse.Subject
                     {
-                        Id = cell.Id,
-                        Day = cell.Day,
-                        LessonNumber = cell.LessonNumber,
-                        Room = cell.Room
-                    }).ToList()
+                        Id = teacherLesson.Lesson.Subject.Id,
+                        Name = teacherLesson.Lesson.Subject.Name
+                    },
+                    ScheduleCells = teacherLesson.Lesson.ScheduleCells.Select(cell =>
+                        new LessonsWithCellsResponse.ScheduleCell
+                        {
+                            Id = cell.Id,
+                            Day = cell.Day,
+                            LessonNumber = cell.LessonNumber,
+                            Room = cell.Room
+                        }).ToList()
                 }).ToListAsync();
 
             return new LessonsWithCellsResponse

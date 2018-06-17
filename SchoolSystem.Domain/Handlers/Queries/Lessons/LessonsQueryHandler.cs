@@ -19,9 +19,9 @@ namespace SchoolSystem.Domain.Handlers.Queries.Lessons
                 .Select(l => new LessonsResponse.Lesson
                 {
                     Id = l.Id,
-                    TeacherId = l.TeacherId,
+                    TeacherIds = l.TeachersLessons.Select(teacherLesson => teacherLesson.TeacherId).ToList(),
                     GroupId = l.GroupId,
-                    Subject = l.Subject
+                    SubjectId = l.SubjectId
                 }).ToListAsync();
 
             return new LessonsResponse
