@@ -16,10 +16,10 @@ namespace SchoolSystem.WebApi.Middleware
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
 
-        public ExceptionHandlingMiddleware(RequestDelegate next, ILogger logger)
+        public ExceptionHandlingMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
         {
             _next = next;
-            _logger = logger;
+            _logger = loggerFactory.CreateLogger<Log4NetLogger>();
         }
 
         public async Task InvokeAsync(HttpContext httpContext)

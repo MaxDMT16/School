@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.AzureAppServices;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Converters;
 using SchoolSystem.Abstractions.Configuration;
@@ -59,7 +60,6 @@ namespace SchoolSystem.WebApi
             containerBuilder.RegisterModule<DatabaseModule>();
             containerBuilder.RegisterModule<DomainModule>();
             containerBuilder.RegisterModule<ConfigurationModule>();
-            containerBuilder.RegisterModule<LoggingModule>();
 
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();
@@ -71,14 +71,13 @@ namespace SchoolSystem.WebApi
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IConfigurationRoot root,
             ILoggerFactory loggerFactory)
         {
-            var loggerConfiguration = app.ApplicationServices.GetRequiredService<ILoggerConfiguration>();
-            loggerFactory.AddProvider(new FileLoggerProvider(loggerConfiguration));
-
             app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseSwagger();
 
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolSystem API V1"); });
+
+            loggerFactory.AddLog4Net();
 
             app.UseMvc();
         }
