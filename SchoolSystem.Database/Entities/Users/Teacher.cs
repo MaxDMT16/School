@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using SchoolSystem.Abstractions.Enums;
 
 namespace SchoolSystem.Database.Entities.Users
 {
-    public class Teacher : User
+    public class Teacher : UserBase
     {
-        //todo: add raiting here
         public ICollection<TeacherLesson> TeachersLessons { get; set; }
     }
 }

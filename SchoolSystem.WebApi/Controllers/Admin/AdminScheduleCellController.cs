@@ -15,7 +15,7 @@ namespace SchoolSystem.WebApi.Controllers.Admin
 {
     [Produces("application/json")]
     [Route("api/admin/schedule-cell")]
-    [OAuth(ScopeFlag.Admin)]
+    [OAuth(Scope.Admin)]
     public class AdminScheduleCellController : SchoolSystemController
     {
         public AdminScheduleCellController(ICommandBus commandBus, IQueryBus queryBus) : base(commandBus, queryBus)

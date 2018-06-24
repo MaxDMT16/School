@@ -115,11 +115,29 @@ namespace SchoolSystem.Abstractions.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ss-0013.
+        /// </summary>
+        internal static string ControllerTypeMissmatchException {
+            get {
+                return ResourceManager.GetString("ControllerTypeMissmatchException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ss-0003.
         /// </summary>
         internal static string CorruptedValidatorException {
             get {
                 return ResourceManager.GetString("CorruptedValidatorException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ss-0014.
+        /// </summary>
+        internal static string DeviceIdHeaderRequiredException {
+            get {
+                return ResourceManager.GetString("DeviceIdHeaderRequiredException", resourceCulture);
             }
         }
         

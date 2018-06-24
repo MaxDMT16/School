@@ -135,8 +135,14 @@
   <data name="CommandHandlerNotFoundException" xml:space="preserve">
     <value>ss-0004</value>
   </data>
+  <data name="ControllerTypeMissmatchException" xml:space="preserve">
+    <value>ss-0013</value>
+  </data>
   <data name="CorruptedValidatorException" xml:space="preserve">
     <value>ss-0003</value>
+  </data>
+  <data name="DeviceIdHeaderRequiredException" xml:space="preserve">
+    <value>ss-0014</value>
   </data>
   <data name="EntityNotFoundException" xml:space="preserve">
     <value>ss-0001</value>

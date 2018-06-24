@@ -7,6 +7,6 @@ namespace SchoolSystem.Abstractions.Contracts.Commands.CmsUsers
     {
         public string Login { get; set; }
         public string Password { get; set; }
-        public ScopeFlag Scope { get; set; }
+        public Scope Scope { get; set; }
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IScope
     {
-        string Name { get; set; }
+        string Name { get; }
     }
 }

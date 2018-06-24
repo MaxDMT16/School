@@ -16,51 +16,11 @@ namespace SchoolSystem.WebApi.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class OAuthAttribute : ActionFilterAttribute
     {
-        private readonly ScopeFlag Scope;
-
-        public OAuthAttribute(ScopeFlag scope)
+        public OAuthAttribute(Scope scope)
         {
             Scope = scope;
         }
 
-        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
-        {
-            if (!context.HttpContext.Request.Headers.TryGetValue("Authorization", out var authorization))
-            {
-                throw new AuthorizationHeaderRequiredException();
-            }
-
-            var accessToken = authorization.First();
-
-            var accessTokenService = context.HttpContext.RequestServices.GetRequiredService<IAccessTokenService>();
-
-            var payload = accessTokenService.GetPayload<CmsTokenPayload>(accessToken);
-
-            var accessTokenKey = await GetAccessTokenKey(context, payload);
-
-            accessTokenService.ValidateToken<CmsTokenPayload>(accessToken, accessTokenKey, Scope);
-
-            if (context.Controller is SecuredController securedController)
-            {
-                securedController.UserId = payload.UserId;
-            }
-
-            await next.Invoke();
-        }
-
-        private async Task<string> GetAccessTokenKey(ActionExecutingContext context, CmsTokenPayload payload)
-        {
-            var queryBus = context.HttpContext.RequestServices.GetRequiredService<IQueryBus>();
-
-            var refreshTokenByIdQuery = new RefreshTokenByIdQuery
-            {
-                Id = payload.UserId
-            };
-
-            var refreshTokenResponse =
-                await queryBus.Execute<RefreshTokenByIdQuery, RefreshTokenResponse>(refreshTokenByIdQuery);
-
-            return refreshTokenResponse.RefreshToken;
-        }
+        public Scope Scope { get; }
     }
 }

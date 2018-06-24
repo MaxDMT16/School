@@ -13,7 +13,7 @@ namespace SchoolSystem.WebApi.Controllers.Admin
 {
     [Produces("application/json")]
     [Route("api/admin/lesson")]
-    [OAuth(ScopeFlag.Admin)]
+    [OAuth(Scope.Admin)]
     public class AdminLessonController : SchoolSystemController
     {
         public AdminLessonController(ICommandBus commandBus, IQueryBus queryBus) : base(commandBus, queryBus)

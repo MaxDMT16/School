@@ -135,8 +135,14 @@
   <data name="CommandHandlerNotFoundException" xml:space="preserve">
     <value>Can't resolve command handler</value>
   </data>
+  <data name="ControllerTypeMissmatchException" xml:space="preserve">
+    <value>Invalid controller type</value>
+  </data>
   <data name="CorruptedValidatorException" xml:space="preserve">
     <value>Validator is corrupted</value>
+  </data>
+  <data name="DeviceIdHeaderRequiredException" xml:space="preserve">
+    <value>DeviceId header is required</value>
   </data>
   <data name="EntityNotFoundException" xml:space="preserve">
     <value>Entity of selected type not found</value>

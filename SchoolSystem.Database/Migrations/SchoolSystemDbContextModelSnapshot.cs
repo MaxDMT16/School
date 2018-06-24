@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 using SchoolSystem.Abstractions.Enums;
 using SchoolSystem.Database.Context;
 using System;
@@ -20,24 +21,6 @@ namespace SchoolSystem.Database.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("SchoolSystem.Database.Entities.CmsUser", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Login");
-
-                    b.Property<string>("Password");
-
-                    b.Property<string>("RefreshToken");
-
-                    b.Property<int>("Scope");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CmsUsers");
-                });
 
             modelBuilder.Entity("SchoolSystem.Database.Entities.Group", b =>
                 {
@@ -114,36 +97,102 @@ namespace SchoolSystem.Database.Migrations
                     b.ToTable("TeachersLessons");
                 });
 
-            modelBuilder.Entity("SchoolSystem.Database.Entities.Users.Pupil", b =>
+            modelBuilder.Entity("SchoolSystem.Database.Entities.Users.CmsUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("Login");
 
-                    b.Property<Guid>("GroupId");
+                    b.Property<string>("Password");
 
-                    b.Property<string>("LastName");
+                    b.Property<int>("Scope");
 
                     b.HasKey("Id");
 
+                    b.ToTable("CmsUsers");
+                });
+
+            modelBuilder.Entity("SchoolSystem.Database.Entities.Users.CmsUserRefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("CmsUserId");
+
+                    b.Property<string>("DeviceId");
+
+                    b.Property<string>("Token");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CmsUserId");
+
+                    b.ToTable("CmsUserRefreshTokens");
+                });
+
+            modelBuilder.Entity("SchoolSystem.Database.Entities.Users.UserBase", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("Login");
+
+                    b.Property<string>("Password");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserBase");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("UserBase");
+                });
+
+            modelBuilder.Entity("SchoolSystem.Database.Entities.Users.UserRefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DeviceId");
+
+                    b.Property<string>("Token");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRefreshTokens");
+                });
+
+            modelBuilder.Entity("SchoolSystem.Database.Entities.Users.Pupil", b =>
+                {
+                    b.HasBaseType("SchoolSystem.Database.Entities.Users.UserBase");
+
+                    b.Property<Guid>("GroupId");
+
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Pupils");
+                    b.ToTable("Pupil");
+
+                    b.HasDiscriminator().HasValue("Pupil");
                 });
 
             modelBuilder.Entity("SchoolSystem.Database.Entities.Users.Teacher", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.HasBaseType("SchoolSystem.Database.Entities.Users.UserBase");
 
-                    b.Property<string>("FirstName");
 
-                    b.Property<string>("LastName");
+                    b.ToTable("Teacher");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Teachers");
+                    b.HasDiscriminator().HasValue("Teacher");
                 });
 
             modelBuilder.Entity("SchoolSystem.Database.Entities.Lesson", b =>
@@ -177,6 +226,22 @@ namespace SchoolSystem.Database.Migrations
                     b.HasOne("SchoolSystem.Database.Entities.Users.Teacher", "Teacher")
                         .WithMany("TeachersLessons")
                         .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SchoolSystem.Database.Entities.Users.CmsUserRefreshToken", b =>
+                {
+                    b.HasOne("SchoolSystem.Database.Entities.Users.CmsUser", "CmsUser")
+                        .WithMany()
+                        .HasForeignKey("CmsUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SchoolSystem.Database.Entities.Users.UserRefreshToken", b =>
+                {
+                    b.HasOne("SchoolSystem.Database.Entities.Users.UserBase", "UserBase")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

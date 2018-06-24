@@ -15,8 +15,8 @@ namespace SchoolSystem.WebApi.Controllers.Admin
 {
     [Produces("application/json")]
     [Route("api/admin/group")]
-    [OAuth(ScopeFlag.Admin)]
-    public class AdminGroupController : SchoolSystemController
+    [OAuth(Scope.Admin)]
+    public class AdminGroupController : CmsUserControllerBase
     {
         public AdminGroupController(ICommandBus commandBus, IQueryBus queryBus) : base(commandBus, queryBus)
         {

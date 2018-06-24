@@ -11,7 +11,7 @@ namespace SchoolSystem.WebApi.Controllers.Master
 {
     [Produces("application/json")]
     [Route("api/master/cms-user")]
-    [OAuth(ScopeFlag.Master)]
+    [OAuth(Scope.Master)]
     public class CmsUserController : SchoolSystemController
     {
         private readonly IMd5HashingService _md5HashingService;

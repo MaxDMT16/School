@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using System.Net.Http;
+using System.Text;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using SchoolSystem.Abstractions.CQRS.Buses;
+using SchoolSystem.Abstractions.Exceptions.Authorization;
 
 namespace SchoolSystem.WebApi.Controllers.Base
 {
@@ -14,6 +19,20 @@ namespace SchoolSystem.WebApi.Controllers.Base
         {
             CommandBus = commandBus;
             QueryBus = queryBus;
+        }
+
+        protected string GetDeviceId(HttpRequest request)
+        {
+            if (!request.Headers.TryGetValue("DeviceId", out var allDevices))
+            {
+                throw new DeviceIdHeaderRequiredException();
+            }
+
+            var deviceId = allDevices
+                .Aggregate(new StringBuilder(), (builder, s) => builder.Append(s))
+                .ToString();
+
+            return deviceId;
         }
     }
 }
