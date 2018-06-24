@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Jose;
 using Newtonsoft.Json.Linq;
-using SchoolSystem.Abstractions.Authorization.Scopes;
 using SchoolSystem.Abstractions.Authorization.Services;
 using SchoolSystem.Abstractions.Configuration;
 using SchoolSystem.Abstractions.Enums;

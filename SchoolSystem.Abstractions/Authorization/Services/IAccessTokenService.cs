@@ -1,5 +1,4 @@
-﻿using SchoolSystem.Abstractions.Authorization.Scopes;
-using SchoolSystem.Abstractions.Enums;
+﻿using SchoolSystem.Abstractions.Enums;
 
 namespace SchoolSystem.Abstractions.Authorization.Services
 {

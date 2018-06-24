@@ -1,5 +1,4 @@
 ﻿using System;
-using SchoolSystem.Abstractions.Authorization.Scopes;
 using SchoolSystem.Abstractions.CQRS.Contracts;
 using SchoolSystem.Abstractions.Enums;
 
