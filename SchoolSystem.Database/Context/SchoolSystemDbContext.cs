@@ -35,28 +35,23 @@ namespace SchoolSystem.Database.Context
             modelBuilder.Entity<Group>()
                 .Property(g => g.Id)
                 .ValueGeneratedOnAdd();
-
-
+            
             modelBuilder.Entity<Pupil>()
                 .Property(g => g.Id)
                 .ValueGeneratedOnAdd();
-
-
+            
             modelBuilder.Entity<Teacher>()
                 .Property(g => g.Id)
                 .ValueGeneratedOnAdd();
-
-
+            
             modelBuilder.Entity<Lesson>()
                 .Property(g => g.Id)
                 .ValueGeneratedOnAdd();
-
-
+            
             modelBuilder.Entity<ScheduleCell>()
                 .Property(g => g.Id)
                 .ValueGeneratedOnAdd();
-
-
+            
             modelBuilder.Entity<CmsUser>()
                 .Property(g => g.Id)
                 .ValueGeneratedOnAdd();
