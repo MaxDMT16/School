@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
-namespace SchoolSystem.Database.Entities.Users
+﻿namespace SchoolSystem.Database.Entities.Users
 {
     public abstract class RefreshToken : EntityBase
     {

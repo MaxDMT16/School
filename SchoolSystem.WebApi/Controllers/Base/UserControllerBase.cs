@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using SchoolSystem.Abstractions.Contracts.Queries.CmsUsers;
 using SchoolSystem.Abstractions.Contracts.Queries.User;
 using SchoolSystem.Abstractions.CQRS.Buses;
 using SchoolSystem.Domain.Authorization.Payloads;

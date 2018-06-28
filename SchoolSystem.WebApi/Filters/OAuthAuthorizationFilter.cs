@@ -5,10 +5,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using SchoolSystem.Abstractions.Authorization.Services;
-using SchoolSystem.Abstractions.Contracts.Queries.CmsUsers;
-using SchoolSystem.Abstractions.CQRS.Buses;
 using SchoolSystem.Abstractions.Exceptions.Authorization;
-using SchoolSystem.Domain.Authorization.Services;
 using SchoolSystem.WebApi.Attributes;
 using SchoolSystem.WebApi.Controllers.Base;
 

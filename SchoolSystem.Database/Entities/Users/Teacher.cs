@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using SchoolSystem.Abstractions.Enums;
+﻿using System.Collections.Generic;
 
 namespace SchoolSystem.Database.Entities.Users
 {

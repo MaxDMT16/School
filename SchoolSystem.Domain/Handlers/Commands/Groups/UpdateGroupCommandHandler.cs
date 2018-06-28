@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Abstractions.Contracts.Commands.Groups;
 using SchoolSystem.Abstractions.Exceptions.Commands;

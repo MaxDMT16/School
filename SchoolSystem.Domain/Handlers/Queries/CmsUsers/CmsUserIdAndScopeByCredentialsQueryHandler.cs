@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Abstractions.Contracts.Queries.CmsUsers;
 using SchoolSystem.Abstractions.Exceptions.Queries;
 using SchoolSystem.Database.Context;
-using SchoolSystem.Database.Entities;
 using SchoolSystem.Database.Entities.Users;
 using SchoolSystem.Database.Handlers;
 
