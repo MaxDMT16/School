@@ -15,8 +15,8 @@ namespace SchoolSystem.WebApi.Controllers.Admin
 {
     [Produces("application/json")]
     [Route("api/admin/pupil")]
-    [OAuth(ScopeFlag.Admin)]
-    public class AdminPupilController : SchoolSystemController
+    [OAuth(Scope.Admin)]
+    public class AdminPupilController : CmsUserControllerBase
     {
         public AdminPupilController(ICommandBus commandBus, IQueryBus queryBus) : base(commandBus, queryBus)
         {
@@ -57,9 +57,9 @@ namespace SchoolSystem.WebApi.Controllers.Admin
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<PupilResponse> GetPupilById(Guid id)
+        public async Task<PupilWithGroupResponse> GetPupilById(Guid id)
         {
-            var pupilResponse = await QueryBus.Execute<PupilByIdQuery, PupilResponse>(new PupilByIdQuery
+            var pupilResponse = await QueryBus.Execute<PupilByIdQuery, PupilWithGroupResponse>(new PupilByIdQuery
             {
                 Id = id
             });

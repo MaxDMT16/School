@@ -6,12 +6,12 @@ namespace SchoolSystem.Abstractions.Exceptions.Authorization
 {
     public class InvalidAccessTokenScopeException : SchoolSystemException
     {
-        public InvalidAccessTokenScopeException(ScopeFlag receivedScope)
+        public InvalidAccessTokenScopeException(Scope receivedScope)
         {
             ReceivedScope = receivedScope;
         }
 
         [Log]
-        public ScopeFlag ReceivedScope { get; }
+        public Scope ReceivedScope { get; }
     }
 }

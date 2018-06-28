@@ -13,6 +13,7 @@ using SchoolSystem.Database;
 using SchoolSystem.Database.Context;
 using SchoolSystem.Domain;
 using SchoolSystem.WebApi.Configuration;
+using SchoolSystem.WebApi.Filters;
 using SchoolSystem.WebApi.Middleware;
 using SchoolSystem.WebApi.OperationFilters;
 using Swashbuckle.AspNetCore.Swagger;
@@ -45,6 +46,7 @@ namespace SchoolSystem.WebApi
                 c.CustomSchemaIds(x => x.FullName);
                 c.DescribeAllEnumsAsStrings();
                 c.OperationFilter<AuthorizationOperationFilter>();
+                c.OperationFilter<RequireDeviceIdOperationFilter>();
             });
 
             var containerBuilder = new ContainerBuilder();
@@ -52,6 +54,7 @@ namespace SchoolSystem.WebApi
             containerBuilder.RegisterModule<DatabaseModule>();
             containerBuilder.RegisterModule<DomainModule>();
             containerBuilder.RegisterModule<ConfigurationModule>();
+            containerBuilder.RegisterModule<ApiModule>();
 
             containerBuilder.Populate(services);
             var container = containerBuilder.Build();

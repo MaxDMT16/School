@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using SchoolSystem.Abstractions.Contracts.Commands.Pupils;
 using SchoolSystem.Database.Context;
 using SchoolSystem.Database.Entities.Users;
@@ -18,7 +19,8 @@ namespace SchoolSystem.Domain.Handlers.Commands.Pupils
             {
                 FirstName = command.FirstName,
                 LastName = command.LastName,
-                GroupId = command.GroupId
+                GroupId = command.GroupId,
+                RegistrationCode = Guid.NewGuid()
             };
 
             DbContext.Pupils.Add(pupil);

@@ -11,7 +11,8 @@ namespace SchoolSystem.WebApi.Controllers.Pupil
 {
     [Produces("application/json")]
     [Route("api/pupil")]
-    public class PupilController : SecuredController
+    [OAuth(Scope.Pupil)]
+    public class PupilController : UserControllerBase
     {
         public PupilController(ICommandBus commandBus, IQueryBus queryBus) : base(commandBus, queryBus)
         {

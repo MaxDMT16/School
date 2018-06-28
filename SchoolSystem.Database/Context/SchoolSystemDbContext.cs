@@ -2,6 +2,7 @@
 using System.Data;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SchoolSystem.Abstractions.Enums;
 using SchoolSystem.Database.Entities;
 using SchoolSystem.Database.Entities.Users;
 
@@ -32,15 +33,19 @@ namespace SchoolSystem.Database.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CmsUser>()
+                .Property(u => u.Id)
+                .ValueGeneratedOnAdd();
+
             modelBuilder.Entity<Group>()
+                .Property(g => g.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Teacher>()
                 .Property(g => g.Id)
                 .ValueGeneratedOnAdd();
             
             modelBuilder.Entity<Pupil>()
-                .Property(g => g.Id)
-                .ValueGeneratedOnAdd();
-            
-            modelBuilder.Entity<Teacher>()
                 .Property(g => g.Id)
                 .ValueGeneratedOnAdd();
             
@@ -51,10 +56,6 @@ namespace SchoolSystem.Database.Context
             modelBuilder.Entity<ScheduleCell>()
                 .Property(g => g.Id)
                 .ValueGeneratedOnAdd();
-            
-            modelBuilder.Entity<CmsUser>()
-                .Property(g => g.Id)
-                .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Subject>()
                 .Property(s => s.Id)
@@ -63,18 +64,24 @@ namespace SchoolSystem.Database.Context
             modelBuilder.Entity<TeacherLesson>()
                 .HasKey(tl => new {tl.TeacherId, tl.LessonId});
 
-            modelBuilder.Entity<Subject>()
-                .Property(s => s.Id)
+            modelBuilder.Entity<UserRefreshToken>()
+                .Property(t => t.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<CmsUserRefreshToken>()
+                .Property(t => t.Id)
                 .ValueGeneratedOnAdd();
         }
 
+        public DbSet<CmsUser> CmsUsers { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Pupil> Pupils { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<ScheduleCell> ScheduleCells { get; set; }
-        public DbSet<CmsUser> CmsUsers { get; set; }
         public DbSet<TeacherLesson> TeachersLessons { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
+        public DbSet<CmsUserRefreshToken> CmsUserRefreshTokens { get; set; }
     }
 }

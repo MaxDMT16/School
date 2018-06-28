@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Jose;
 using Newtonsoft.Json.Linq;
-using SchoolSystem.Abstractions.Authorization.Scopes;
 using SchoolSystem.Abstractions.Authorization.Services;
 using SchoolSystem.Abstractions.Configuration;
 using SchoolSystem.Abstractions.Enums;
@@ -24,7 +23,7 @@ namespace SchoolSystem.Domain.Authorization.Services
             _configuration = configuration;
         }
 
-        public string CreateToken<TPayload>(TPayload payload, string key, ScopeFlag scope)
+        public string CreateToken<TPayload>(TPayload payload, string key, Scope scope)
             where TPayload : Payload
         {
             if (payload == null)
@@ -35,6 +34,11 @@ namespace SchoolSystem.Domain.Authorization.Services
             if (key == null)
             {
                 throw new ArgumentNullException(nameof(key));
+            }
+
+            if (scope == null)
+            {
+                throw new ArgumentNullException(nameof(scope));
             }
 
             var extraHeaders = new Dictionary<string, object>
@@ -54,7 +58,7 @@ namespace SchoolSystem.Domain.Authorization.Services
             return encode;
         }
 
-        public void ValidateToken<TPayload>(string token, string key, ScopeFlag requiredScope)
+        public void ValidateToken<TPayload>(string token, string key, Scope requiredScope)
             where TPayload : Payload
         {
             if (token == null)
@@ -67,6 +71,11 @@ namespace SchoolSystem.Domain.Authorization.Services
                 throw new ArgumentNullException(nameof(key));
             }
 
+            if (requiredScope == null)
+            {
+                throw new ArgumentNullException(nameof(requiredScope));
+            }
+
             try
             {
                 var concatenatedKey = _configuration.ServerKey + key;
@@ -74,8 +83,7 @@ namespace SchoolSystem.Domain.Authorization.Services
                 var keyBytes = Encoding.UTF8.GetBytes(concatenatedKey);
 
                 var payload = JWT.Decode<TPayload>(token, keyBytes);
-
-
+                
                 ValidatePayload(payload);
 
                 var headers = JWT.Headers<JObject>(token);
@@ -96,7 +104,7 @@ namespace SchoolSystem.Domain.Authorization.Services
             }
         }
 
-        private void ValidateScopes(ScopeFlag requiredScope, JObject headers)
+        private void ValidateScopes(Scope requiredScope, JObject headers)
         {
             var isScopesHeaderExist =
                 headers.TryGetValue(ScopesHeaderName, StringComparison.OrdinalIgnoreCase, out var value);
@@ -106,11 +114,11 @@ namespace SchoolSystem.Domain.Authorization.Services
                 throw new AccessTokenWithoutScopesException(headers);
             }
 
-            var scope = value.ToObject<ScopeFlag>();
-
-            if (requiredScope > scope)
+            var tokenScope = value.ToObject<Scope>();
+            
+            if (tokenScope < requiredScope)
             {
-                throw new InvalidAccessTokenScopeException(scope);
+                throw new InvalidAccessTokenScopeException(tokenScope);
             }
         }
 
