@@ -1,5 +1,4 @@
 ﻿using System;
-using SchoolSystem.Abstractions.Enums;
 
 namespace SchoolSystem.Database.Entities.Users
 {

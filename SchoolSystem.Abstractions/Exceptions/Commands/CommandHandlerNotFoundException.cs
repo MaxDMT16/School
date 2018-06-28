@@ -1,5 +1,4 @@
 ﻿using SchoolSystem.Abstractions.CQRS.Contracts;
-using SchoolSystem.Abstractions.Exceptions.Base;
 
 namespace SchoolSystem.Abstractions.Exceptions.Commands
 {

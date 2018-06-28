@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Abstractions.Contracts.Commands.User;
 using SchoolSystem.Database.Context;

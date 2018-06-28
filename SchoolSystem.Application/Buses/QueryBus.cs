@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Autofac;
 using FluentValidation;
 using SchoolSystem.Abstractions.CQRS.Buses;
@@ -7,7 +6,6 @@ using SchoolSystem.Abstractions.CQRS.Contracts;
 using SchoolSystem.Abstractions.CQRS.Handlers;
 using SchoolSystem.Abstractions.Exceptions.Base;
 using SchoolSystem.Abstractions.Exceptions.Queries;
-using ValidationException = FluentValidation.ValidationException;
 
 namespace SchoolSystem.Application.Buses
 {

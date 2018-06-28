@@ -13,7 +13,6 @@ using SchoolSystem.Database;
 using SchoolSystem.Database.Context;
 using SchoolSystem.Domain;
 using SchoolSystem.WebApi.Configuration;
-using SchoolSystem.WebApi.Filters;
 using SchoolSystem.WebApi.Middleware;
 using SchoolSystem.WebApi.OperationFilters;
 using Swashbuckle.AspNetCore.Swagger;

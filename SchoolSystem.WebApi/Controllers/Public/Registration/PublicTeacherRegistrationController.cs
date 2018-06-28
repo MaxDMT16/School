@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SchoolSystem.Abstractions.Contracts.Commands.Pupils;
-using SchoolSystem.Abstractions.Contracts.Queries.Pupils;
+using SchoolSystem.Abstractions.Contracts.Commands.Teachers;
+using SchoolSystem.Abstractions.Contracts.Queries.Teachers;
 using SchoolSystem.Abstractions.CQRS.Buses;
 using SchoolSystem.Abstractions.Services.Hashing;
 using SchoolSystem.WebApi.Controllers.Base;
@@ -10,35 +10,34 @@ using SchoolSystem.WebApi.Models.Registrations;
 
 namespace SchoolSystem.WebApi.Controllers.Public.Registration
 {
-    [Route("api/public/registration")]
-    public class PublicRegistrationController : SchoolSystemController
+    [Route("")]
+    public class PublicTeacherRegistrationController : SchoolSystemController
     {
         private readonly IMd5HashingService _md5HashingService;
 
-        public PublicRegistrationController(ICommandBus commandBus, IQueryBus queryBus,
+        public PublicTeacherRegistrationController(ICommandBus commandBus, IQueryBus queryBus,
             IMd5HashingService md5HashingService) : base(commandBus, queryBus)
         {
             _md5HashingService = md5HashingService;
         }
 
         [HttpGet]
-        [Route("pupil/{registrationCode}")]
-        public async Task<PupilByRegistrationCodeResponse> GetInfoByRegistrationCode(Guid registrationCode)
+        [Route("{registrationCode}")]
+        public async Task<TeacherByRegistrationCodeResponse> GetInfoByRegistrationCode(Guid registrationCode)
         {
-            var pupilResponse = await QueryBus.Execute<PupilByRegistrationCodeQuery, PupilByRegistrationCodeResponse>(
-                new PupilByRegistrationCodeQuery
+            var teacherResponse = await QueryBus.Execute<TeacherByRegistrationCodeQuery, TeacherByRegistrationCodeResponse>(
+                new TeacherByRegistrationCodeQuery
                 {
                     RegistrationCode = registrationCode
                 });
 
-            return pupilResponse;
+            return teacherResponse;
         }
 
         [HttpPost]
-        [Route("pupil")]
-        public async Task RegisterPupil(RegistrationModel model)
+        public async Task RegisterTeacher(RegistrationModel model)
         {
-            await CommandBus.Execute(new UpdatePupilCredentialsByRegistrationCodeCommand
+            await CommandBus.Execute(new UpdateTeacherByRegistrationCodeCommand
             {
                 RegistrationCode = model.RegistrationCode,
                 Email = model.Email,

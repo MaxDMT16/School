@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using SchoolSystem.Abstractions.Contracts.Commands.Teachers;
 using SchoolSystem.Database.Context;
 using SchoolSystem.Database.Entities.Users;
@@ -17,7 +18,8 @@ namespace SchoolSystem.Domain.Handlers.Commands.Teachers
             var teacher = new Teacher
             {
                 FirstName = command.FirstName,
-                LastName = command.LastName
+                LastName = command.LastName,
+                RegistrationCode = Guid.NewGuid()
             };
 
             DbContext.Teachers.Add(teacher);

@@ -2,7 +2,6 @@
 using System.Data;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SchoolSystem.Abstractions.Enums;
 using SchoolSystem.Database.Entities;
 using SchoolSystem.Database.Entities.Users;
 
