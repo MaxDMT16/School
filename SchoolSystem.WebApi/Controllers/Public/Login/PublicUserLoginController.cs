@@ -10,8 +10,9 @@ using SchoolSystem.Domain.Authorization.Payloads;
 using SchoolSystem.WebApi.Controllers.Base;
 using SchoolSystem.WebApi.Models.Login;
 
-namespace SchoolSystem.WebApi.Controllers.Public
+namespace SchoolSystem.WebApi.Controllers.Public.Login
 {
+    [Route("api/public/login")]
     public class PublicUserLoginController : SchoolSystemController
     {
         private readonly IMd5HashingService _md5HashingService;
@@ -32,7 +33,7 @@ namespace SchoolSystem.WebApi.Controllers.Public
         {
             var cmsUserIdAndScopeByCredentialsQuery = new UserIdAndScopeByCredentialsQuery
             {
-                Login = model.Login,
+                Email = model.Email,
                 Password = _md5HashingService.GetHashBase64(model.Password)
             };
 

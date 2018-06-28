@@ -13,9 +13,10 @@ using System;
 namespace SchoolSystem.Database.Migrations
 {
     [DbContext(typeof(SchoolSystemDbContext))]
-    partial class SchoolSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180628053335_AddRegistrationCode")]
+    partial class AddRegistrationCode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,11 +140,11 @@ namespace SchoolSystem.Database.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
-                    b.Property<string>("Email");
-
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
+
+                    b.Property<string>("Login");
 
                     b.Property<string>("Password");
 

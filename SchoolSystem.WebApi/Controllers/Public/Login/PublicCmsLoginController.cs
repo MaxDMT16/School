@@ -10,7 +10,7 @@ using SchoolSystem.Domain.Authorization.Services;
 using SchoolSystem.WebApi.Controllers.Base;
 using SchoolSystem.WebApi.Models.Login;
 
-namespace SchoolSystem.WebApi.Controllers.Public
+namespace SchoolSystem.WebApi.Controllers.Public.Login
 {
     [Produces("application/json")]
     [Route("api/public/cms-login")]
@@ -34,7 +34,7 @@ namespace SchoolSystem.WebApi.Controllers.Public
         {
             var cmsUserIdAndScopeByCredentialsQuery = new CmsUserIdAndScopeByCredentialsQuery
             {
-                Login = model.Login,
+                Login = model.Email,
                 Password = _md5HashingService.GetHashBase64(model.Password)
             };
 

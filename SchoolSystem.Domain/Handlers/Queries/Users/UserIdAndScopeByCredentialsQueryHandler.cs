@@ -20,12 +20,12 @@ namespace SchoolSystem.Domain.Handlers.Queries.Users
         public override async Task<UserIdAndScopeResponse> Execute(UserIdAndScopeByCredentialsQuery query)
         {
             var teacher = await DbContext.Teachers
-                .FirstOrDefaultAsync(t => t.Login == query.Login && t.Password == query.Password);
+                .FirstOrDefaultAsync(t => t.Email == query.Email && t.Password == query.Password);
 
             if (teacher == null)
             {
                 var pupil = await DbContext.Pupils
-                    .FirstOrDefaultAsync(p => p.Login == query.Login && p.Password == query.Password);
+                    .FirstOrDefaultAsync(p => p.Email == query.Email && p.Password == query.Password);
 
                 if (pupil == null)
                 {

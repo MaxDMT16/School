@@ -1,12 +1,15 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using SchoolSystem.Abstractions.Contracts.Queries.CmsUsers;
 using SchoolSystem.Abstractions.Contracts.Queries.User;
 using SchoolSystem.Abstractions.CQRS.Buses;
 using SchoolSystem.Domain.Authorization.Payloads;
+using SchoolSystem.WebApi.Filters;
 
 namespace SchoolSystem.WebApi.Controllers.Base
 {
+    [ServiceFilter(typeof(OAuthAuthorizationFilter<UserTokenPayload>))]
     public abstract class UserControllerBase : SecuredController<UserTokenPayload>
     {
         protected UserControllerBase(ICommandBus commandBus, IQueryBus queryBus) : base(commandBus, queryBus)

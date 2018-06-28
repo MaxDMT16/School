@@ -3,8 +3,8 @@ using SchoolSystem.Abstractions.CQRS.Contracts;
 
 namespace SchoolSystem.Abstractions.Contracts.Queries.Pupils
 {
-    public class PupilByIdQuery : IQuery<PupilWithGroupResponse>
+    public class PupilByRegistrationCodeQuery : IQuery<PupilByRegistrationCodeResponse>
     {
-        public Guid Id { get; set; }
+        public Guid RegistrationCode { get; set; }
     }
 }
