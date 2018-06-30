@@ -8,5 +8,6 @@ namespace SchoolSystem.Abstractions.Contracts.Commands.Pupils
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Guid GroupId { get; set; }
+        public Guid RegistrationCode { get; set; }
     }
 }

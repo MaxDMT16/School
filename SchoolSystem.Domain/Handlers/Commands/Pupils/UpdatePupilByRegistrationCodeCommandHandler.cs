@@ -8,20 +8,20 @@ using SchoolSystem.Database.Handlers;
 
 namespace SchoolSystem.Domain.Handlers.Commands.Pupils
 {
-    public class UpdatePupilCredentialsByRegistrationCodeCommandHandler : 
-        CommandHandlerBase<UpdatePupilCredentialsByRegistrationCodeCommand>
+    public class UpdatePupilByRegistrationCodeCommandHandler : 
+        CommandHandlerBase<UpdatePupilByRegistrationCodeCommand>
     {
-        public UpdatePupilCredentialsByRegistrationCodeCommandHandler(ISchoolSystemDbContext dbContext) : base(dbContext)
+        public UpdatePupilByRegistrationCodeCommandHandler(ISchoolSystemDbContext dbContext) : base(dbContext)
         {
         }
 
-        public override async Task Execute(UpdatePupilCredentialsByRegistrationCodeCommand command)
+        public override async Task Execute(UpdatePupilByRegistrationCodeCommand command)
         {
             var pupil = await DbContext.Pupils.FirstOrDefaultAsync(p => p.RegistrationCode == command.RegistrationCode);
 
             if (pupil == null)
             {
-                throw new EntityNotFoundException<Pupil, UpdatePupilCredentialsByRegistrationCodeCommand>(command);
+                throw new EntityNotFoundException<Pupil, UpdatePupilByRegistrationCodeCommand>(command);
             }
 
             pupil.Email = command.Email;

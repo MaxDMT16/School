@@ -19,7 +19,9 @@ namespace SchoolSystem.Domain.Handlers.Queries.Teachers
             {
                 Id = t.Id,
                 FirstName = t.FirstName,
-                LastName = t.LastName
+                LastName = t.LastName,
+                Email = t.Email,
+                RegistrationCode = t.RegistrationCode
             }).ToListAsync();
 
             return new TeachersResponse
