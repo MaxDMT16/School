@@ -10,7 +10,7 @@ using SchoolSystem.WebApi.Models.Registrations;
 
 namespace SchoolSystem.WebApi.Controllers.Public.Registration
 {
-    [Route("")]
+    [Route("api/public/registration/teacher")]
     public class PublicTeacherRegistrationController : SchoolSystemController
     {
         private readonly IMd5HashingService _md5HashingService;

@@ -7,6 +7,7 @@ using SchoolSystem.Abstractions.CQRS.Buses;
 using SchoolSystem.Abstractions.Enums;
 using SchoolSystem.WebApi.Attributes;
 using SchoolSystem.WebApi.Controllers.Base;
+using SchoolSystem.WebApi.Models.Admin.Pupil;
 
 namespace SchoolSystem.WebApi.Controllers.Admin
 {
@@ -20,9 +21,24 @@ namespace SchoolSystem.WebApi.Controllers.Admin
         }
 
         [HttpPost]
-        public async Task CreatePupil([FromBody] CreatePupilCommand command)
+        public async Task<CreatePupilResponseModel> CreatePupil([FromBody] CreatePupilRequestModel model)
         {
+            var registrationCode = Guid.NewGuid();
+
+            var command = new CreatePupilCommand
+            {
+                RegistrationCode = registrationCode,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                GroupId = model.GroupId
+            };
+
             await CommandBus.Execute(command);
+
+            return new CreatePupilResponseModel
+            {
+                RegistrationCode = registrationCode
+            };
         }
 
         [HttpPut]

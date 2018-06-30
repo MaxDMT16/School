@@ -37,7 +37,7 @@ namespace SchoolSystem.WebApi.Controllers.Public.Registration
         [HttpPost]
         public async Task RegisterPupil(RegistrationModel model)
         {
-            await CommandBus.Execute(new UpdatePupilCredentialsByRegistrationCodeCommand
+            await CommandBus.Execute(new UpdatePupilByRegistrationCodeCommand
             {
                 RegistrationCode = model.RegistrationCode,
                 Email = model.Email,

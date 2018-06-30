@@ -20,7 +20,9 @@ namespace SchoolSystem.Domain.Handlers.Queries.Pupils
                 Id = p.Id,
                 FirstName = p.FirstName,
                 LastName = p.LastName,
-                GroupId = p.GroupId
+                Email = p.Email,
+                GroupId = p.GroupId,
+                RegistrationCode = p.RegistrationCode
             }).ToListAsync();
 
             return new PupilsResponse

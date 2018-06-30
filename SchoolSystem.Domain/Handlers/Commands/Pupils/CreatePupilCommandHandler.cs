@@ -20,7 +20,7 @@ namespace SchoolSystem.Domain.Handlers.Commands.Pupils
                 FirstName = command.FirstName,
                 LastName = command.LastName,
                 GroupId = command.GroupId,
-                RegistrationCode = Guid.NewGuid()
+                RegistrationCode = command.RegistrationCode
             };
 
             DbContext.Pupils.Add(pupil);

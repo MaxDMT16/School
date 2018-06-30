@@ -19,7 +19,7 @@ namespace SchoolSystem.Domain.Handlers.Commands.Teachers
             {
                 FirstName = command.FirstName,
                 LastName = command.LastName,
-                RegistrationCode = Guid.NewGuid()
+                RegistrationCode = command.RegistrationCode
             };
 
             DbContext.Teachers.Add(teacher);
