@@ -6,7 +6,7 @@ using SchoolSystem.Abstractions.Contracts.Queries.Teachers;
 using SchoolSystem.Abstractions.CQRS.Buses;
 using SchoolSystem.Abstractions.Services.Hashing;
 using SchoolSystem.WebApi.Controllers.Base;
-using SchoolSystem.WebApi.Models.Registrations;
+using SchoolSystem.WebApi.Models.Public.Registrations;
 
 namespace SchoolSystem.WebApi.Controllers.Public.Registration
 {

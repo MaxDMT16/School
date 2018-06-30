@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using SchoolSystem.Abstractions.Contracts.Queries.CmsUsers;
 using SchoolSystem.Abstractions.CQRS.Buses;
+using SchoolSystem.Domain.Authorization.Payloads;
 using SchoolSystem.Domain.Authorization.Services;
 using SchoolSystem.WebApi.Filters;
 

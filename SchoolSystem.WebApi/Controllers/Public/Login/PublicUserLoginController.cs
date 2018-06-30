@@ -8,7 +8,7 @@ using SchoolSystem.Abstractions.Services.Hashing;
 using SchoolSystem.Abstractions.Services.RandomString;
 using SchoolSystem.Domain.Authorization.Payloads;
 using SchoolSystem.WebApi.Controllers.Base;
-using SchoolSystem.WebApi.Models.Login;
+using SchoolSystem.WebApi.Models.Public.Login;
 
 namespace SchoolSystem.WebApi.Controllers.Public.Login
 {
@@ -29,7 +29,7 @@ namespace SchoolSystem.WebApi.Controllers.Public.Login
         }
 
         [HttpPost]
-        public async Task<LoginResponseModel> Login([FromBody] LoginRequestModel model)
+        public async Task<LoginResponseModel> Login([FromBody] LoginUserRequestModel model)
         {
             var cmsUserIdAndScopeByCredentialsQuery = new UserIdAndScopeByCredentialsQuery
             {

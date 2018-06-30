@@ -6,9 +6,10 @@ using SchoolSystem.Abstractions.Contracts.Queries.CmsUsers;
 using SchoolSystem.Abstractions.CQRS.Buses;
 using SchoolSystem.Abstractions.Services.Hashing;
 using SchoolSystem.Abstractions.Services.RandomString;
+using SchoolSystem.Domain.Authorization.Payloads;
 using SchoolSystem.Domain.Authorization.Services;
 using SchoolSystem.WebApi.Controllers.Base;
-using SchoolSystem.WebApi.Models.Login;
+using SchoolSystem.WebApi.Models.Public.Login;
 
 namespace SchoolSystem.WebApi.Controllers.Public.Login
 {
@@ -30,7 +31,7 @@ namespace SchoolSystem.WebApi.Controllers.Public.Login
         }
 
         [HttpPost]
-        public async Task<LoginResponseModel> Login([FromBody] LoginRequestModel model)
+        public async Task<LoginResponseModel> Login([FromBody] LoginCmsUserRequestModel model)
         {
             var cmsUserIdAndScopeByCredentialsQuery = new CmsUserIdAndScopeByCredentialsQuery
             {

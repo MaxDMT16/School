@@ -1,6 +1,6 @@
 ﻿using SchoolSystem.Abstractions.Enums;
 
-namespace SchoolSystem.WebApi.Models.Login
+namespace SchoolSystem.WebApi.Models.Public.Login
 {
     public class LoginResponseModel
     {

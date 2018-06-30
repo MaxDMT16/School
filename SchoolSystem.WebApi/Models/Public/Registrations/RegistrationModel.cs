@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SchoolSystem.WebApi.Models.Registrations
+namespace SchoolSystem.WebApi.Models.Public.Registrations
 {
     public class RegistrationModel
     {
